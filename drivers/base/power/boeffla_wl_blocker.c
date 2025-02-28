@@ -109,10 +109,8 @@
  static ssize_t wakelock_blocker_default_store(struct device * dev, struct device_attribute *attr,
                   const char * buf, size_t n)
  {
-     int len = n;
- 
      // check if string is too long to be stored
-     if (len > LENGTH_LIST_WL_DEFAULT)
+     if (n > LENGTH_LIST_WL_DEFAULT)
          return -EINVAL;
  
      // store default, predefined wakelock list and rebuild search string
