@@ -140,19 +140,6 @@ struct teo_cpu {
 
 static DEFINE_PER_CPU(struct teo_cpu, teo_cpus);
 
-unsigned long teo_cpu_get_util_threshold(int cpu)
-{
-	struct teo_cpu *cpu_data = per_cpu_ptr(&teo_cpus, cpu);
-	return cpu_data->util_threshold;
-}
-EXPORT_SYMBOL_GPL(teo_cpu_get_util_threshold);
-void teo_cpu_set_util_threshold(int cpu, unsigned long util)
-{
-	struct teo_cpu *cpu_data = per_cpu_ptr(&teo_cpus, cpu);
-	cpu_data->util_threshold = util;
-}
-EXPORT_SYMBOL_GPL(teo_cpu_set_util_threshold);
-
 /**
  * teo_update - Update CPU metrics after wakeup.
  * @drv: cpuidle driver containing state data.
