@@ -65,10 +65,6 @@
 # include "cpufreq.c"
 #endif
 
-#ifdef CONFIG_CPU_FREQ_GOV_SCHEDUTIL
-# include "cpufreq_schedutil.c"
-#endif
-
 #ifdef CONFIG_SCHED_DEBUG
 # include "debug.c"
 #endif
