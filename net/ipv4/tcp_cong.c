@@ -445,38 +445,40 @@ EXPORT_SYMBOL_GPL(tcp_cong_avoid_ai);
  */
 void tcp_reno_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 {
-	struct tcp_sock *tp = tcp_sk(sk);
+    struct tcp_sock *tp = tcp_sk(sk);
 
-	if (!tcp_is_cwnd_limited(sk))
-		return;
+    if (!tcp_is_cwnd_limited(sk))
+        return;
 
-	/* In "safe" area, increase. */
-	if (tcp_in_slow_start(tp)) {
-		acked = tcp_slow_start(tp, acked);
-		if (!acked)
-			return;
-	}
-	/* In dangerous area, increase slowly. */
-	/* Custom Increment Factor to Slow Down Growth */
-	u32 increment_factor = 1;  // Default is 1 for Reno
+    /* In "safe" area, increase. */
+    if (tcp_in_slow_start(tp)) {
+        acked = tcp_slow_start(tp, acked);
+        if (!acked)
+            return;
+    }
 
-	/* Tune for battery life by making growth more conservative */
+    /* In dangerous area, increase slowly. */
+    /* Custom Increment Factor to Slow Down Growth */
+    u32 increment_factor = 1;  // Default is 1 for Reno
 
-	if (tcp_snd_cwnd(tp) > tp->snd_ssthresh) {
-		increment_factor = 0.5;  // Increase slower in congestion avoidance
-	}
+    /* Tune for battery life by making growth more conservative */
+    if (tcp_snd_cwnd(tp) > tp->snd_ssthresh) {
+        increment_factor = 1;  // Simulasi 0.5 dalam integer
+    }
 
-	/* Apply modified Additive Increase */
-	if (tcp_snd_cwnd(tp) < tp->snd_cwnd_clamp) {
-		u32 increment = max(1U, (tcp_snd_cwnd(tp) * increment_factor) / tcp_snd_cwnd(tp));
+    /* Apply modified Additive Increase */
+    if (tcp_snd_cwnd(tp) < tp->snd_cwnd_clamp) {
+        u32 increment = max(1U, (tcp_snd_cwnd(tp) * increment_factor) / 2);
 
-		/* Limit the maximum growth per RTT */
-		u32 max_increment = 2;
-		if (increment > max_increment)
-			increment = max_increment;
-		tp->snd_cwnd += increment;
-	}
+        /* Limit the maximum growth per RTT */
+        u32 max_increment = 2;
+        if (increment > max_increment)
+            increment = max_increment;
+
+        tp->snd_cwnd += increment;
+    }
 }
+
 EXPORT_SYMBOL_GPL(tcp_reno_cong_avoid);
 
 /* Slow start threshold is half the congestion window (min 2) */
