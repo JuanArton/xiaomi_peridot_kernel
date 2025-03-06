@@ -457,7 +457,25 @@ void tcp_reno_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 			return;
 	}
 	/* In dangerous area, increase slowly. */
-	tcp_cong_avoid_ai(tp, tcp_snd_cwnd(tp), acked);
+	/* Custom Increment Factor to Slow Down Growth */
+	u32 increment_factor = 1;  // Default is 1 for Reno
+
+	/* Tune for battery life by making growth more conservative */
+
+	if (tcp_snd_cwnd(tp) > tp->snd_ssthresh) {
+		increment_factor = 0.5;  // Increase slower in congestion avoidance
+	}
+
+	/* Apply modified Additive Increase */
+	if (tcp_snd_cwnd(tp) < tp->snd_cwnd_clamp) {
+		u32 increment = max(1U, (tcp_snd_cwnd(tp) * increment_factor) / tcp_snd_cwnd(tp));
+
+		/* Limit the maximum growth per RTT */
+		u32 max_increment = 2;
+		if (increment > max_increment)
+			increment = max_increment;
+		tp->snd_cwnd += increment;
+	}
 }
 EXPORT_SYMBOL_GPL(tcp_reno_cong_avoid);
 
