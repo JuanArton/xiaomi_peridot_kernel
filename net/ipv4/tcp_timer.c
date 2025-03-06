@@ -203,8 +203,8 @@ static unsigned int tcp_model_timeout(struct sock *sk,
  * retransmissions with an initial RTO of TCP_RTO_MIN.
  */
 static bool retransmits_timed_out(struct sock *sk,
-				  unsigned int boundary,
-				  unsigned int timeout)
+	unsigned int boundary,
+	unsigned int timeout)
 {
 	unsigned int start_ts;
 
@@ -215,9 +215,21 @@ static bool retransmits_timed_out(struct sock *sk,
 	if (likely(timeout == 0)) {
 		unsigned int rto_base = TCP_RTO_MIN;
 
+		/* Increase Base RTO for Battery Life */
 		if ((1 << sk->sk_state) & (TCPF_SYN_SENT | TCPF_SYN_RECV))
-			rto_base = tcp_timeout_init(sk);
+		rto_base = tcp_timeout_init(sk);
+
+		/* Add Extra Buffer to RTO Base */
+		rto_base += 100;  // Add 100ms to base RTO for more conservative timeout
+
+		/* Use a Less Aggressive Timeout Model */
 		timeout = tcp_model_timeout(sk, boundary, rto_base);
+
+		/* Gradual Exponential Backoff */
+		unsigned int backoff_factor = 2;
+		if (inet_csk(sk)->icsk_retransmits > 1) {
+			timeout *= backoff_factor;
+		}
 	}
 
 	return (s32)(tcp_time_stamp(tcp_sk(sk)) - start_ts - timeout) >= 0;
