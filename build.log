@@ -13,53 +13,26 @@
   CALL    ../scripts/checksyscalls.sh
   CC      init/version.o
   CC      kernel/sys.o
-  CC      arch/arm64/kernel/cpuidle.o
   AR      init/built-in.a
-  AR      arch/arm64/kernel/built-in.a
-  AR      arch/arm64/built-in.a
   CC      net/ethtool/ioctl.o
-  CC      kernel/sched/fair.o
-  CC      kernel/power/main.o
-  CC      drivers/base/power/domain_governor.o
   CC      drivers/base/firmware_loader/fallback_table.o
-  CC      kernel/sched/build_policy.o
-  CC      kernel/power/suspend.o
-  CC      kernel/power/hibernate.o
   CC      drivers/base/firmware_loader/main.o
-  AR      drivers/base/power/built-in.a
-  CC      kernel/power/snapshot.o
-  CC      kernel/power/swap.o
-  AR      net/ethtool/built-in.a
-  CC      kernel/power/user.o
+  CC      kernel/sched/cpufreq_schedutil.o
   CC      drivers/base/firmware_loader/fallback.o
-  CC      kernel/power/wakelock.o
-  AR      net/built-in.a
   CC      drivers/base/firmware_loader/sysfs.o
   CC      drivers/base/firmware_loader/builtin/main.o
-  CC      kernel/module/main.o
   AR      drivers/base/firmware_loader/builtin/built-in.a
+  CC      kernel/module/main.o
+  AR      kernel/sched/built-in.a
   AR      drivers/base/firmware_loader/built-in.a
   AR      drivers/base/built-in.a
-  AR      kernel/power/built-in.a
-  AR      kernel/sched/built-in.a
-  CC      drivers/cpuidle/cpuidle.o
-  CC      drivers/cpuidle/driver.o
-  CC      drivers/cpuidle/governor.o
-  CC      drivers/cpuidle/sysfs.o
-  CC      drivers/cpuidle/governors/menu.o
-  CC      drivers/cpuidle/dt_idle_states.o
-  CC      drivers/firmware/psci/psci.o
-  CC      drivers/cpuidle/governors/teo.o
-  CC      drivers/cpuidle/cpuidle-psci.o
-  AR      kernel/module/built-in.a
-  CC      kernel/trace/trace.o
-  AR      drivers/cpuidle/governors/built-in.a
+  AR      net/ethtool/built-in.a
+  AR      net/built-in.a
   CHK     kernel/kheaders_data.tar.xz
-  GEN     kernel/kheaders_data.tar.xz
-  AR      drivers/firmware/psci/built-in.a
-  AR      drivers/firmware/built-in.a
-  AR      drivers/cpuidle/built-in.a
   AR      drivers/built-in.a
+  CC      kernel/trace/trace.o
+  GEN     kernel/kheaders_data.tar.xz
+  AR      kernel/module/built-in.a
   AR      kernel/trace/built-in.a
   AR      kernel/built-in.a
   CC [M]  kernel/kheaders.o
@@ -71,7 +44,8 @@
   GEN     .vmlinux.objs
   MODPOST Module.symvers
   GEN     vmlinux.symvers
-  CC      .vmlinux.export.o
+  UPD     include/generated/utsversion.h
+  CC      init/version-timestamp.o
   CC [M]  arch/arm64/geniezone/gzvm.mod.o
   CC [M]  drivers/bluetooth/btbcm.mod.o
   CC [M]  drivers/bluetooth/btqca.mod.o
@@ -79,13 +53,11 @@
   CC [M]  drivers/bluetooth/hci_uart.mod.o
   CC [M]  drivers/net/can/dev/can-dev.mod.o
   CC [M]  drivers/net/can/slcan/slcan.mod.o
-  UPD     include/generated/utsversion.h
-  CC      init/version-timestamp.o
+  LD      .tmp_vmlinux.kallsyms1
   CC [M]  drivers/net/can/vcan.mod.o
   CC [M]  drivers/net/mii.mod.o
   CC [M]  drivers/net/ppp/bsd_comp.mod.o
   CC [M]  drivers/net/ppp/ppp_deflate.mod.o
-  LD      .tmp_vmlinux.kallsyms1
   CC [M]  drivers/net/ppp/ppp_generic.mod.o
   CC [M]  drivers/net/ppp/ppp_mppe.mod.o
   CC [M]  drivers/net/ppp/pppox.mod.o
@@ -95,16 +67,16 @@
   CC [M]  drivers/net/usb/asix.mod.o
   CC [M]  drivers/net/usb/ax88179_178a.mod.o
   CC [M]  drivers/net/usb/cdc_eem.mod.o
-  CC [M]  drivers/net/usb/cdc_ether.mod.o
-  CC [M]  drivers/net/usb/cdc_ncm.mod.o
   NM      .tmp_vmlinux.kallsyms1.syms
+  CC [M]  drivers/net/usb/cdc_ether.mod.o
+  KSYMS   .tmp_vmlinux.kallsyms1.S
+  CC [M]  drivers/net/usb/cdc_ncm.mod.o
   CC [M]  drivers/net/usb/r8152.mod.o
   CC [M]  drivers/net/usb/r8153_ecm.mod.o
   CC [M]  drivers/net/usb/rtl8150.mod.o
   CC [M]  drivers/net/usb/usbnet.mod.o
   CC [M]  drivers/net/wwan/wwan.mod.o
   CC [M]  drivers/usb/class/cdc-acm.mod.o
-  KSYMS   .tmp_vmlinux.kallsyms1.S
   CC [M]  drivers/usb/serial/ftdi_sio.mod.o
   CC [M]  drivers/usb/serial/usbserial.mod.o
   CC [M]  kernel/kheaders.mod.o
@@ -112,8 +84,8 @@
   CC [M]  net/6lowpan/6lowpan.mod.o
   CC [M]  net/6lowpan/nhc_dest.mod.o
   CC [M]  net/6lowpan/nhc_fragment.mod.o
-  CC [M]  net/6lowpan/nhc_hop.mod.o
   AS      .tmp_vmlinux.kallsyms1.o
+  CC [M]  net/6lowpan/nhc_hop.mod.o
   CC [M]  net/6lowpan/nhc_ipv6.mod.o
   CC [M]  net/6lowpan/nhc_mobility.mod.o
   CC [M]  net/6lowpan/nhc_routing.mod.o
@@ -128,13 +100,13 @@
   CC [M]  net/can/can.mod.o
   CC [M]  net/ieee802154/6lowpan/ieee802154_6lowpan.mod.o
   CC [M]  net/ieee802154/ieee802154.mod.o
+  LD      .tmp_vmlinux.kallsyms2
   CC [M]  net/ieee802154/ieee802154_socket.mod.o
   CC [M]  net/l2tp/l2tp_core.mod.o
   CC [M]  net/l2tp/l2tp_ppp.mod.o
   CC [M]  net/mac802154/mac802154.mod.o
   CC [M]  net/nfc/nfc.mod.o
   CC [M]  net/rfkill/rfkill.mod.o
-  LD      .tmp_vmlinux.kallsyms2
   CC [M]  net/tipc/diag.mod.o
   CC [M]  net/tipc/tipc.mod.o
   LD [M]  arch/arm64/geniezone/gzvm.ko
@@ -143,8 +115,9 @@
   LD [M]  drivers/bluetooth/btsdio.ko
   LD [M]  drivers/bluetooth/hci_uart.ko
   LD [M]  drivers/net/can/dev/can-dev.ko
-  LD [M]  drivers/net/can/slcan/slcan.ko
+  NM      .tmp_vmlinux.kallsyms2.syms
   LD [M]  drivers/net/can/vcan.ko
+  LD [M]  drivers/net/can/slcan/slcan.ko
   LD [M]  drivers/net/mii.ko
   LD [M]  drivers/net/ppp/bsd_comp.ko
   LD [M]  drivers/net/ppp/ppp_deflate.ko
@@ -154,20 +127,20 @@
   LD [M]  drivers/net/ppp/pptp.ko
   LD [M]  drivers/net/slip/slhc.ko
   LD [M]  drivers/net/usb/aqc111.ko
-  LD [M]  drivers/net/usb/ax88179_178a.ko
   LD [M]  drivers/net/usb/asix.ko
+  LD [M]  drivers/net/usb/ax88179_178a.ko
   LD [M]  drivers/net/usb/cdc_eem.ko
   LD [M]  drivers/net/usb/cdc_ether.ko
-  LD [M]  drivers/net/usb/cdc_ncm.ko
   LD [M]  drivers/net/usb/r8152.ko
+  LD [M]  drivers/net/usb/cdc_ncm.ko
   LD [M]  drivers/net/usb/r8153_ecm.ko
   LD [M]  drivers/net/usb/rtl8150.ko
   LD [M]  drivers/net/usb/usbnet.ko
   LD [M]  drivers/net/wwan/wwan.ko
   LD [M]  drivers/usb/class/cdc-acm.ko
   LD [M]  drivers/usb/serial/ftdi_sio.ko
-  LD [M]  kernel/kheaders.ko
   LD [M]  drivers/usb/serial/usbserial.ko
+  LD [M]  kernel/kheaders.ko
   LD [M]  lib/crypto/libarc4.ko
   LD [M]  net/6lowpan/6lowpan.ko
   LD [M]  net/6lowpan/nhc_dest.ko
@@ -194,9 +167,8 @@
   LD [M]  net/nfc/nfc.ko
   LD [M]  net/rfkill/rfkill.ko
   LD [M]  net/tipc/diag.ko
-  LD [M]  net/tipc/tipc.ko
-  NM      .tmp_vmlinux.kallsyms2.syms
   KSYMS   .tmp_vmlinux.kallsyms2.S
+  LD [M]  net/tipc/tipc.ko
   AS      .tmp_vmlinux.kallsyms2.o
   LD      vmlinux
   NM      System.map
