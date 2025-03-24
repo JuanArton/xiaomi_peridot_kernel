@@ -374,6 +374,7 @@ _DB845C_MODULE_OUTS = [
     "drivers/mfd/qcom-spmi-pmic.ko",
     "drivers/mfd/wcd934x.ko",
     "drivers/misc/fastrpc.ko",
+    "drivers/misc/kxrctrl/aphost.ko",
     "drivers/mmc/host/cqhci.ko",
     "drivers/mmc/host/sdhci-msm.ko",
     "drivers/net/can/spi/mcp251xfd/mcp251xfd.ko",
@@ -524,6 +525,14 @@ kernel_build(
     module_outs = _DB845C_MODULE_OUTS + _DB845C_WATCHDOG_MODULE_OUTS,
     strip_modules = True,
 )
+
+load(":consolidate.bzl", "define_consolidate")
+
+define_consolidate()
+
+load(":msm_platforms.bzl", "define_msm_platforms")
+
+define_msm_platforms()
 
 kernel_build(
     name = "db845c_with_kgdb",
@@ -959,11 +968,15 @@ filegroup(
 ddk_headers(
     name = "all_headers_unsafe",
     hdrs = [
+        "drivers/devfreq/governor.h",
         "drivers/gpu/drm/virtio/virtgpu_trace.h",
+        "mm/slab.h",
     ],
     # The list of include directories where source files can #include headers
     # from. In other words, these are the `-I` option to the C compiler.
     # Unsafe include directories are appended to ccflags-y.
-    includes = [],
+    includes = [
+        "drivers/devfreq",
+    ],
     visibility = ["//visibility:private"],
 )
