@@ -51,7 +51,7 @@ static int zram_major;
 static const char *default_compressor = "lz4";
 
 /* Module params (documentation at end) */
-static unsigned int num_devices = 1;
+static unsigned int num_devices = 4;
 /*
  * Pages that compress to sizes equals or greater than this are stored
  * uncompressed in memory.
