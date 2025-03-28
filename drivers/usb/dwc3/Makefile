@@ -54,3 +54,9 @@ obj-$(CONFIG_USB_DWC3_ST)		+= dwc3-st.o
 obj-$(CONFIG_USB_DWC3_QCOM)		+= dwc3-qcom.o
 obj-$(CONFIG_USB_DWC3_IMX8MP)		+= dwc3-imx8mp.o
 obj-$(CONFIG_USB_DWC3_XILINX)		+= dwc3-xilinx.o
+obj-$(CONFIG_USB_DWC3_MSM)		+= dwc3-msm.o
+dwc3-msm-y				:= dwc3-msm-core.o debug_ipc.o
+ifneq ($(CONFIG_ARM64),)
+dwc3-msm-y				+= dwc3-msm-ops.o
+endif
+obj-$(CONFIG_MI_EXTCON_USB_GPIO)	+= xm-extcon-usb-gpio.o
