@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-2.0-only */
 /*
- * Copyright (c) 2021-2024, Qualcomm Innovation Center, Inc. All rights reserved.
+ * Copyright (c) 2021-2023, Qualcomm Innovation Center, Inc. All rights reserved.
  */
 #ifndef __LINUX_USB_REPEATER_H
 #define __LINUX_USB_REPEATER_H
@@ -8,8 +8,6 @@
 #include <linux/errno.h>
 #include <linux/device.h>
 #include <linux/types.h>
-
-#define UR_AUTO_RESUME_SUPPORTED	BIT(0)
 
 struct usb_repeater  {
 	struct device		*dev;
@@ -31,7 +29,7 @@ struct usb_repeater *devm_usb_get_repeater_by_phandle(struct device *dev,
 struct usb_repeater *devm_usb_get_repeater_by_node(struct device *dev,
 		struct device_node *node);
 struct usb_repeater *usb_get_repeater_by_phandle(struct device *dev,
-			const char *phandle, u8 index);
+		const char *phandle, u8 index);
 struct usb_repeater *usb_get_repeater_by_node(struct device_node *node);
 void usb_put_repeater(struct usb_repeater *r);
 int usb_add_repeater_dev(struct usb_repeater *r);

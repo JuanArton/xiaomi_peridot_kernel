@@ -1,0 +1,828 @@
+[33m906245f3e23ff[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mantergos-v4[m[33m)[m peridot_defconfig: Enable bbr
+[33m9162b5b59e5ec[m net-tcp_bbr: v3: update TCP "bbr" congestion control module to BBRv3
+[33m0fbe9b850ce30[m usb: Import xiaomi changes
+[33m889d7848017c0[m PM / freezer: Reduce freeze timeout to 1 second for Android
+[33m4997e369e6817[m rcu: Make the grace period workers unbound again
+[33m61498574c6c3f[m rcu: Panic on stalls by default
+[33m0eba66d757fa2[m zram: increase num_device to 4
+[33me87c7de59c0a1[m zram: Switch to lz4 algorithm
+[33m63f413116251f[m peridot_defconfig
+[33mddab0a4762182[m cpuidle: Reject idle entry if need_resched() is true
+[33mb2ed89a3f3b34[m cpuidle: Don't return from inside __CPU_PM_CPU_IDLE_ENTER() macro
+[33ma743a04b02829[m boeffla_wl_blocker: block qcom_rx_wakelock
+[33mc38fceb1d9397[m scripts: Makefile: suppress DTC compiler warnings
+[33m48e55b9ddd954[m Silent and skip more warning
+[33m4d496f7c93755[m int_sqrt: Improve 3x faster integer sqrt.
+[33mcfad8428e091e[m Suppress overly verbose log spam
+[33m5bccd8c6fa508[m arm_arch_timer: Silence CNTVCT access trapping log
+[33mea5eb83f96661[m PM / suspend: Reduce verbosity of logging
+[33m244cdd1829e4f[m Increase the EXT4 default commit age.
+[33m874c5054151e4[m config: disable headers install for speeding up build time
+[33ma6a7a86d29038[m peridot_defconfig
+[33mb2228a1fca4d1[m sched/cass: Avoid using the prime CPU on systems that have one
+[33ma2d887ecfb21e[m sched/cass: Don't fight the idle load balancer
+[33m11dc32f2579b7[m sched/cass: Honor uclamp even when no CPUs can satisfy the requirement
+[33m684d53ee40498[m sched/cass: Fix disproportionate load spreading when CPUs are throttled
+[33mf03af217ca85f[m sched/cass: Eliminate redundant calls to smp_processor_id()
+[33m228306ab9501f[m sched/cass: Only treat sync waker CPU as idle if there's one task running
+[33mc745c026f2583[m sched/cass: Fix suboptimal task placement when uclamp is used
+[33mfed171b9b8bcc[m sched/cass: Perform runqueue selection for RT tasks too
+[33m411286b3f3b2c[m sched/cass: Clean up local variable scope in cass_best_cpu()
+[33m4b7fdfbf90890[m sched/cass: Fix CPU selection when no candidate CPUs are idle
+[33mcae6fc24c9c41[m sched/cass: Introduce the Capacity Aware Superset Scheduler
+[33m71d501f38fb3c[m sched/fair: Always update CPU capacity when load balancing
+[33mcfe097a4998c7[m sched/fair: Reduce PELT half-life from 32 ms to 16 ms
+[33m5598ba39f13dd[m peridot_defconfig
+[33m7ae1162d1066e[m cpufreq: schedutil: Use the frequency below the target if they're close
+[33m4db9ef5112fc9[m cpufreq: schedutil: Allow single-CPU frequency to drop without idling
+[33me4d09bce15092[m Revert "ANDROID: cpuidle: teo: Export a function that allows modifying util_threshold"
+[33m8d52e25a75752[m cpuidle: teo: Add a timer to avoid staying in WFI for too long on arm64
+[33m6ea97354556f7[m cpuidle: teo: Don't count non-existent intercepts
+[33mb41e4a1a31842[m cpuidle: teo: Remove recent intercepts metric
+[33m9a0ce184374ba[m cpuidle: teo: Avoid unnecessary variable assignments
+[33maa27e7b73fe8e[m cpuidle: teo: Gather statistics regarding whether or not to stop the tick
+[33m3a121a30ead5e[m cpuidle: teo: Skip tick_nohz_get_sleep_length() call in some cases
+[33mb3d831fe98f20[m cpuidle: teo: Do not call tick_nohz_get_sleep_length() upfront
+[33m7c658d964d962[m cpuidle: teo: Avoid stopping the tick unnecessarily when bailing out
+[33m80ec555b6cc2c[m Revert "UPSTREAM: cpuidle: teo: Optionally skip polling states in teo_find_shallower_state()"
+[33m3ae2e0d25de19[m Revert "BACKPORT: cpuidle: teo: Introduce util-awareness"
+[33mad4f7cd11deea[m Revert "UPSTREAM: cpuidle: teo: Update idle duration estimate when choosing shallower state"
+[33m282229a7af532[m sched/fair: Fix initial util_avg calculation
+[33m01882bfe14893[m cpufreq: schedutil: Fix superfluous updates caused by need_freq_update
+[33m7b2802c4ebfd8[m sched/pelt: Avoid underestimation of task utilization
+[33ma49eff58fab89[m cpufreq: schedutil: Set default rate limit to 20000 us
+[33mec4cc4dfe82ac[m peridot: Update kernel name
+[33mce5fc9f9eedf4[m Fix newline
+[33md6cbad9af4124[m Enable Boeffla Wakelock Blocker
+[33m68346a3564017[m Enable Boeffla Wakelock Blocker
+[33m88dfaf22a02cd[m power: wl_blocker: add some wakelocks to the blacklist Seems blocking them does not affect device stability.
+[33m2ce6dfaf55d59[m power: wl_blocker: add default list Signed-off-by: Denis Efremov <efremov@linux.com>
+[33m709e9c8247317[m power: wl_blocker: use device_store_bool() to store wl_blocker_debug Signed-off-by: Denis Efremov <efremov@linux.com>
+[33m798343e983fd0[m power: wl_blocker: add error handling to init function Signed-off-by: Denis Efremov <efremov@linux.com>
+[33mded077a5d00e6[m power: wl_blocker: add misc_deregister in exit function Signed-off-by: Denis Efremov <efremov@linux.com>
+[33mdc39006912c75[m power: wl_blocker: add pr_fmt Signed-off-by: Denis Efremov <efremov@linux.com>
+[33md96d900a10da3[m power: wl_blocker: mark functions with __init, __exit attrs Signed-off-by: Denis Efremov <efremov@linux.com>
+[33m3106c00a80622[m power: wl_blocker: use strcpy() in init Signed-off-by: Denis Efremov <efremov@linux.com>
+[33mdb69fe9382f18[m power: wl_blocker: remove excessive len variable Signed-off-by: Denis Efremov <efremov@linux.com>
+[33m9647f698a1015[m power: wl_blocker: remove excessive len variable
+[33m5cd71ac7f2b80[m power: wl_blocker: fix permissions for version_show Use only read permissions for version_show.
+[33m1486ed760e187[m power: wl_blocker: use scnprintf PAGE_SIZE Signed-off-by: Denis Efremov <efremov@linux.com>
+[33mb8b21478dcc94[m power: wl_blocker: add generic size Signed-off-by: Denis Efremov <efremov@linux.com>
+[33m8ce668647b14a[m power: Add generic wakelock blocker driver v1.1.0 Based on ideas of FranciscoFranco's non-generic driver.
+[33m35442bef2971d[m peridot: enable FullLTO Build
+[33m124d2aa55b394[m ignore log
+[33m7ac9764984aaa[m net/ipv4: Fix build error
+[33ma18030c4d8652[m include/net: Adjust Delayed ACKs
+[33m2ba63344059a3[m net/ipv4: Increase Retransmission Timeout
+[33ma7f3b7f513e3c[m net/ipv4: Slow Down Congestion Window Growth
+[33mce28b19f6c54d[m perdiot: change kernel name
+[33m7ee7791adc9d0[m Fix build error
+[33m59218ce082144[m peridot_defconfig
+[33m8f97d8ae484bd[m Kernel: Import xiaomi changes
+[33m3299562cf8c12[m kernel: Use the stock defconfig for /proc/config.gz
+[33mcc1f4f8e18658[m Merge remote-tracking branch 'android14-6.1-lts' of https://android.googlesource.com/kernel/common
+[33me491ac923f8d4[m Merge tag 'KERNEL.PLATFORM.3.0.r1-11800-kernel.0' of https://git.codelinaro.org/clo/la/kernel/qcom
+[33m7c1a6949984d3[m[33m ([m[1;31maosp/android14-6.1-lts[m[33m)[m Merge 6.1.131 into android14-6.1-lts
+[33m727d125cb59d4[m ANDROID: GKI: fix crc change in __icmp_send
+[33m193ff8b1d4460[m Merge branch 'android14-6.1' into android14-6.1-lts
+[33m1c9aeb1ce34bb[m Merge tag 'android14-6.1.129_r00' into android14-6.1
+[33mb18db21117e28[m ANDROID: GKI: Update rockchip symbols for drm driver.
+[33mf628136006cce[m ANDROID: ABI: Update pixel symbol list
+[33m2fb96ec85c0e9[m ANDROID: vendor_hook: add vendor hook on calculate_totalreserve_pages
+[33m5145d157731fc[m ANDROID: GKI: update symbol list file for xiaomi
+[33m2f4537ba6c01c[m ANDROID: vendor_hooks: Skip pages with high memory pressure in shrink_active_list
+[33mda6a42c111c87[m FROMGIT: mm/page_alloc: add trace event for totalreserve_pages calculation
+[33m95baed16639c0[m BACKPORT: FROMGIT: mm/page_alloc: add trace event for per-zone lowmem reserve setup
+[33m9d6305174ccd3[m BACKPORT: FROMGIT: mm/page_alloc: add trace event for per-zone watermark setup
+[33m0dab5dccaf5b3[m[33m ([m[1;33mtag: [m[1;33mKERNEL.PLATFORM.3.0.r1-11800-kernel.0[m[33m)[m Merge commit 'f75a035e1e6445510864b4096491bc58b84497a8' into HEAD
+[33m7da329f7cf910[m ANDROID: Update the ABI symbol list
+[33md3b0aaa092abb[m ANDROID: Add EXPORT_SYMBOL_GPL for folio_mapcount
+[33m6bd3e435f2e8e[m UPSTREAM: f2fs: fix inconsistent dirty state of atomic file
+[33m2afd0800a7300[m UPSTREAM: net: avoid race between device unregistration and ethnl ops
+[33m92ada4b4c2155[m UPSTREAM: pfifo_tail_enqueue: Drop new packet when sch->limit == 0
+[33mcd0ebcd175791[m UPSTREAM: vsock: Orphan socket after transport release
+[33m7f11cc02d9eee[m UPSTREAM: vsock: Keep the binding until socket destruction
+[33me2647b0fb4204[m UPSTREAM: bpf, vsock: Invoke proto::close on close()
+[33mcfa792a7764dd[m FROMGIT: f2fs: fix to avoid atomicity corruption of atomic file
+[33mf3c4686f770c5[m ANDROID: abi_gki_aarch64_qcom: Add xas_load
+[33m33c9d4844afc4[m ANDROID: Update the ABI symbol list
+[33m0ad7fae66c7f1[m ANDROID: printk: add vendor hook to logging during hibernation
+[33m4da91a8e563c4[m BACKPORT: FROMGIT: f2fs: fix to avoid running out of free segments
+[33m64560e780e907[m BACKPORT: FROMGIT: f2fs: fix to avoid panic once fallocation fails for pinfile
+[33m27895588a299b[m BACKPORT: f2fs: compress: fix inconsistent update of i_blocks in release_compress_blocks and reserve_compress_blocks
+[33m70d032fba5f49[m ANDROID: GKI: Add KMI symbol list for zebra
+[33m344a09659766c[m Linux 6.1.131
+[33m5c0729c4c5e8f[m kbuild: userprogs: use correct lld when linking through clang
+[33m631e00fdac7ac[m vsock: Orphan socket after transport release
+[33m42b33381e5e1f[m vsock: Keep the binding until socket destruction
+[33m13a4362ab83cd[m bpf, vsock: Invoke proto::close on close()
+[33meffac690913af[m fs/ntfs3: Add rough attr alloc_size check
+[33mdbd3e4adb98e5[m media: mediatek: vcodec: Handle invalid decoder vsi
+[33m30652c8ceb9a1[m scsi: lpfc: Fix a possible data race in lpfc_unregister_fcf_rescan()
+[33m1ee2d454baa36[m nilfs2: handle errors that nilfs_prepare_chunk() may return
+[33m982319391e199[m nilfs2: eliminate staggered calls to kunmap in nilfs_rename
+[33mc38a305f2b174[m nilfs2: move page release outside of nilfs_delete_entry and nilfs_set_link
+[33mc07bfa44f93e6[m spi-mxs: Fix chipselect glitch
+[33m260c0566e1940[m x86/mm: Don't disable PCID when INVLPG has been fixed by microcode
+[33mde03a57b5c784[m uprobes: Fix race in uprobe_free_utask
+[33m0084a61db66ba[m Revert "KVM: PPC: e500: Mark "struct page" dirty in kvmppc_e500_shadow_map()"
+[33m20228df3722b4[m Revert "KVM: PPC: e500: Mark "struct page" pfn accessed before dropping mmu_lock"
+[33m44603dee0898c[m Revert "KVM: PPC: e500: Use __kvm_faultin_pfn() to handle page faults"
+[33me7d343986ad3b[m Revert "KVM: e500: always restore irqs"
+[33m3fa1370826672[m ALSA: hda: realtek: fix incorrect IS_REACHABLE() usage
+[33m8427e0b5c1cfd[m iio: adc: at91-sama5d2_adc: fix sama7g5 realbits value
+[33ma4ee0bee3d92f[m iio: dac: ad3552r: clear reset status flag
+[33m22638b6fc16ab[m iio: filter: admv8818: Force initialization of SDO
+[33m524f29d78c9bd[m drivers: virt: acrn: hsm: Use kzalloc to avoid info leak in pmcmd_ioctl
+[33mbbfb0cfdfd6eb[m eeprom: digsy_mtc: Make GPIO lookup table match the device
+[33m7a5ffadd54fe2[m bus: mhi: host: pci_generic: Use pci_try_reset_function() to avoid deadlock
+[33m18ae4cee05c31[m slimbus: messaging: Free transaction ID in delayed interrupt scenario
+[33mdbd2dc4716796[m drivers: core: fix device leak in __fw_devlink_relax_cycles()
+[33me130e85633e3d[m intel_th: pci: Add Panther Lake-P/U support
+[33m926c07237ebaa[m intel_th: pci: Add Panther Lake-H support
+[33mf630ab2c95d5b[m intel_th: pci: Add Arrow Lake support
+[33mf42cd9f2c29a2[m mei: me: add panther lake P DID
+[33m0ce61dbca7d85[m KVM: SVM: Drop DEBUGCTL[5:2] from guest's effective value
+[33m4a12b6c0629ad[m usb: xhci: Enable the TRB overfetch quirk on VIA VL805
+[33m9692a6706292d[m xhci: pci: Fix indentation in the PCI device ID definitions
+[33m18f827128b8f0[m usb: gadget: Check bmAttributes only if configuration is valid
+[33m79d07d7f3076e[m usb: gadget: Fix setting self-powered state on suspend
+[33mb589d499458ab[m usb: gadget: Set self-powered based on MaxPower and bmAttributes
+[33mceafde7ce3131[m usb: typec: tcpci_rt1711h: Unmask alert interrupts to fix functionality
+[33m871d6eaaffe4a[m usb: typec: ucsi: increase timeout for PPM reset operations
+[33ma9fa9f461f60b[m usb: dwc3: gadget: Prevent irq storm when TH re-executes
+[33md8e4783444ae3[m usb: dwc3: Set SUSPENDENABLE soon after phy init
+[33m197e78076c5ec[m usb: atm: cxacru: fix a flaw in existing endpoint checks
+[33m4ca078084cdd5[m usb: renesas_usbhs: Flush the notify_hotplug_work
+[33mad379788a5d3d[m usb: quirks: Add DELAY_INIT and NO_LPM for Prolific Mass Storage Card Reader
+[33mbd7072aefd7dc[m usb: hub: lack of clearing xHC resources
+[33mf2ae16f71b36e[m usb: renesas_usbhs: Use devm_usb_get_phy()
+[33m3d7f7a149ce2d[m usb: renesas_usbhs: Call clk_put()
+[33ma55aa36d457c8[m Revert "drivers/card_reader/rtsx_usb: Restore interrupt based detection"
+[33m1f59fc0d0097e[m gpio: rcar: Fix missing of_node_put() call
+[33m09418e5946de6[m net: ipv6: fix missing dst ref drop in ila lwtunnel
+[33me8defaef4c64e[m net: ipv6: fix dst ref loop in ila lwtunnel
+[33m000c9ee43928f[m sched/fair: Fix potential memory corruption in child_cfs_rq_on_list
+[33m6aae16a9731d4[m ublk: set_params: properly check if parameters can be applied
+[33macbcb74ee0d4f[m net-timestamp: support TCP GSO case for a few missing flags
+[33mbb08e1d61bbbd[m exfat: fix soft lockup in exfat_clear_bitmap
+[33m2b0cbcf85255d[m x86/sgx: Fix size overflows in sgx_encl_create()
+[33m5a515d13e1553[m vlan: enforce underlying device type
+[33m3de809a768464[m ppp: Fix KMSAN uninit-value warning with bpf
+[33m33244e98aa950[m net: hns3: make sure ptp clock is unregister and freed if hclge_ptp_get_cycle returns an error
+[33m4393452e6c0c0[m be2net: fix sleeping while atomic bugs in be_ndo_bridge_getlink
+[33m957d8036f8c3f[m drm/sched: Fix preprocessor guard
+[33mf463358c617ca[m hwmon: fix a NULL vs IS_ERR_OR_NULL() check in xgene_hwmon_probe()
+[33m17f86e25431eb[m llc: do not use skb_get() before dev_queue_xmit()
+[33m48eb7e67c1780[m ALSA: usx2y: validate nrpacks module parameter on probe
+[33m7d0f113aad2c6[m hwmon: (ad7314) Validate leading zero bits and return error
+[33m2903c122617f4[m hwmon: (ntc_thermistor) Fix the ncpXXxh103 sensor table
+[33mafaf7f4516186[m hwmon: (pmbus) Initialise page count in pmbus_identify()
+[33m29e0cd296c872[m caif_virtio: fix wrong pointer check in cfv_probe()
+[33me8db70537878e[m net: gso: fix ownership in __udp_gso_segment
+[33m4d1a05cc0b06c[m nvmet-tcp: Fix a possible sporadic response drops in weakly ordered arch
+[33mf5631307e300a[m bluetooth: btusb: Initialize .owner field of force_poll_sync_fops
+[33mcf1a6015d2f6b[m HID: intel-ish-hid: Fix use-after-free issue in ishtp_hid_remove()
+[33m52488583e751b[m HID: google: fix unused variable warning under !CONFIG_ACPI
+[33m88ed69f924638[m wifi: iwlwifi: limit printed string from FW file
+[33m90c30bed206b1[m mm: don't skip arch_sync_kernel_mappings() in error paths
+[33md0f491ccfd286[m mm/page_alloc: fix uninitialized variable
+[33m30f67c104838b[m block: fix conversion of GPT partition name to 7-bit
+[33md09cf514212e3[m s390/traps: Fix test_monitor_call() inline assembly
+[33m469761d254160[m dma: kmsan: export kmsan_handle_dma() for modules
+[33ma5f5e520e8fbc[m rapidio: fix an API misues when rio_add_net() fails
+[33mad82be4298a89[m rapidio: add check for rio_add_net() in rio_scan_alloc_net()
+[33m236f41ca728f2[m wifi: nl80211: reject cooked mode if it is set along with other flags
+[33mf4112cb477c72[m wifi: cfg80211: regulatory: improve invalid hints checking
+[33mdc516e66fb28c[m Bluetooth: Add check for mgmt_alloc_skb() in mgmt_device_connected()
+[33m37785a01040cb[m Bluetooth: Add check for mgmt_alloc_skb() in mgmt_remote_name()
+[33mf1404f368c40f[m mptcp: fix 'scheduling while atomic' in mptcp_pm_nl_append_new_local_addr
+[33m9ccee498a8109[m x86/cpu: Properly parse CPUID leaf 0x2 TLB descriptor 0x63
+[33m336ab3ea08f73[m x86/cpu: Validate CPUID leaf 0x2 EDX output
+[33mcfe0ecf6ce1b4[m x86/cacheinfo: Validate CPUID leaf 0x2 EDX output
+[33m85e3d5ba5d894[m platform/x86: thinkpad_acpi: Add battery quirk for ThinkPad X131e
+[33m15e3a8cc4ee7f[m drm/radeon: Fix rs400_gpu_init for ATI mobility radeon Xpress 200M
+[33mc1e54752dc12e[m drm/amd/display: Fix null check for pipe_ctx->plane_state in resource_build_scaling_params
+[33m010cd946549a1[m ALSA: hda/realtek: update ALC222 depop optimize
+[33mdc209114b2e2c[m ALSA: hda/realtek - add supported Mic Mute LED for Lenovo platform
+[33m4115d28c0419f[m ALSA: hda: intel: Add Dell ALC3271 to power_save denylist
+[33m9334c88fc2fbc[m gpio: aggregator: protect driver attr handlers against module unload
+[33m3e300913c4204[m gpio: rcar: Use raw_spinlock to protect register access
+[33m11e0e74e14f18[m ksmbd: fix bug on trap in smb2_lock
+[33m410ce35a2ed6d[m ksmbd: fix use-after-free in smb2_lock
+[33m6321bbda4244b[m ksmbd: fix type confusion via race condition when using ipc_msg_send_request
+[33m8d39eb8c5e14f[m HID: appleir: Fix potential NULL dereference at raw event handle
+[33m12333d3362cba[m LoongArch: Convert unreachable() to BUG()
+[33m4b46c6e1edb52[m Revert "of: reserved-memory: Fix using wrong number of cells to get property 'alignment'"
+[33m0c65d13bdcc54[m x86/amd_nb: Use rdmsr_safe() in amd_get_mmconfig_range()
+[33m2ff298cca9f27[m x86/speculation: Add __update_spec_ctrl() helper
+[33md2d7ee96cc4f8[m cpuidle, intel_idle: Fix CPUIDLE_FLAG_IBRS
+[33mb3b35ff81e1b4[m drm/amdgpu: disable BAR resize on Dell G5 SE
+[33mb0b6f8b533e35[m drm/amdgpu: Check extended configuration space register when system uses large bar
+[33mc2b3f2af0ab0c[m ibmvnic: Inspect header requirements before using scrq direct
+[33m30875b69e3003[m ibmvnic: Perform tx CSO during send scrq direct
+[33mefd0bedd2cb21[m ANDROID: GKI: Update rockchip symbols for drm driver.
+[33ma54c40cad26a3[m Merge 6.1.130 into android14-6.1-lts
+[33m2785dc9dde922[m ANDROID: GKI: Fix CRC issue with change to include/net/tcp.h
+[33m87c6ad8371f5c[m Merge 87858bbf21da ("tcp: drop secpath at the same time as we currently drop dst") into android14-6.1-lts
+[33m3a51c14aa9165[m Merge cb7bea988771 ("net: axienet: Set mac_managed_pm") into android14-6.1-lts
+[33m208e9672db2a5[m Merge ac18d7814662 ("media: uvcvideo: Remove dangling pointers") into android14-6.1-lts
+[33me9df7dc25aaab[m Merge 0986efc3c7fa ("spi: atmel-qspi: Memory barriers after memory-mapped I/O") into android14-6.1-lts
+[33m9212df9856810[m Merge 0a09d56e1682 ("memcg: fix soft lockup in the OOM process") into android14-6.1-lts
+[33m69a6dfc9c3cbb[m ANDROID: GKI: Update symbol list for mtk
+[33m1bc4f0dcdcd48[m Merge 6.1.129 into android14-6.1-lts
+[33m5c2815ea50584[m Revert "cgroup: fix race between fork and cgroup.kill"
+[33mf082ff3de7c76[m Merge 0264d6b73eaf ("can: ems_pci: move ASIX AX99100 ids to pci_ids.h") into android14-6.1-lts
+[33m12b82de5347aa[m Merge db8686b24af1 ("usb: roles: set switch registered flag early on") into android14-6.1-lts
+[33m897e9179dd9be[m Revert "of: reserved-memory: Fix using wrong number of cells to get property 'alignment'"
+[33m97c6e8c639fee[m Revert "pps: Fix a use-after-free"
+[33m1a79d14d699b4[m Merge a298df1bbe3e ("usb: dwc3: Fix timeout issue during controller enter/exit from halt state") into android14-6.1-lts
+[33m43908d99f213c[m Merge 09b288fb7f4e ("maple_tree: simplify split calculation") into android14-6.1-lts
+[33med4c442cd61a6[m Merge c56ba3ea8e3c ("misc: fastrpc: Fix copy buffer page size") into android14-6.1-lts
+[33m590a924310273[m Merge bde20431745a ("usb: gadget: f_tcm: Don't prepare BOT write request twice") into android14-6.1-lts
+[33m028c8a63f18c9[m Merge d8d6db8e9845 ("of: Correct child specifier used as input of the 2nd nexus node") into android14-6.1-lts
+[33maa28806b5b693[m Merge 99bf7c841458 ("clk: qcom: clk-rpmh: prevent integer overflow in recalc_rate") into android14-6.1-lts
+[33m0a07f883ce385[m Merge 7a5894417332 ("Bluetooth: L2CAP: accept zero as a special value for MTU auto-selection") into android14-6.1-lts
+[33m15e832da23c73[m Merge 915697c2e69a ("Revert "drm/amd/display: Use HW lock mgr for PSR1"") into android14-6.1-lts
+[33m9bcabbda673ad[m ANDROID: userfaultfd: add MOVE ioctl mode to confirm bug-fixes
+[33m8d8d44ff91f18[m FROMGIT: userfaultfd: fix PTE unmapping stack-allocated PTE copies
+[33maf439accc7ddc[m FROMGIT: userfaultfd: do not block on locking a large folio with raised refcount
+[33m7d6124b6046c6[m FROMGIT: BACKPORT: mm: fix kernel BUG when userfaultfd_move encounters swapcache
+[33mf967d1da0e0d3[m Merge 27cf74b92e01 ("arm64: dts: rockchip: increase gmac rx_delay on rk3399-puma") into android14-6.1-lts
+[33ma3fdfc6e1cb0c[m ANDROID: GKI: virtual_device: add __drm_atomic_helper_plane_duplicate_state to the symbol list
+[33m44db4837f75e0[m ANDROID: Update the ABI symbol list
+[33m6ae7ac5c4251b[m[33m ([m[1;33mtag: [m[1;33mv6.1.130[m[33m)[m Linux 6.1.130
+[33meeb62bb4ca22d[m media: mtk-vcodec: potential null pointer deference in SCP
+[33m020ecb76812a0[m pfifo_tail_enqueue: Drop new packet when sch->limit == 0
+[33m5b99dea79650b[m Squashfs: check the inode number is not the invalid value of zero
+[33mc72eda07d1c61[m mm/memory: Use exception ip to search exception tables
+[33m7b425f542f95b[m ptrace: Introduce exception_ip arch hook
+[33mef3bc90758c5d[m intel_idle: Handle older CPUs, which stop the TSC in deeper C states, correctly
+[33mb6eac419320cd[m amdgpu/pm/legacy: fix suspend/resume issues
+[33m070fda699dfdc[m drm/amd/display: fixed integer types and null check locations
+[33mee3ab05cf710e[m riscv/futex: sign extend compare value in atomic cmpxchg
+[33m84586322e0101[m sched/core: Prevent rescheduling when interrupts are disabled
+[33m8ada478c44c7b[m vmlinux.lds: Ensure that const vars with relocations are mapped R/O
+[33m1489b2dd2360e[m mptcp: reset when MPTCP opts are dropped after join
+[33m8116fb4acd5d3[m mptcp: always handle address removal under msk socket lock
+[33mf19009e4c7b44[m phy: exynos5-usbdrd: fix MPLL_MULTIPLIER and SSC_REFCLKSEL masks in refclk
+[33m14d1a86563313[m phy: tegra: xusb: reset VBUS & ID OVERRIDE
+[33m39f843e486417[m net: enetc: fix the off-by-one issue in enetc_map_tx_tso_buffs()
+[33m45b8d6ce934ff[m net: enetc: correct the xdp_tx statistics
+[33m88304bb7b3b72[m net: enetc: update UDP checksum when updating originTimestamp field
+[33mc55a98def76b3[m net: enetc: keep track of correct Tx BD count in enetc_map_tx_tso_buffs()
+[33m046e2669e90a3[m net: enetc: fix the off-by-one issue in enetc_map_tx_buffs()
+[33m67ebc3391c837[m usbnet: gl620a: fix endpoint checking in genelink_bind()
+[33m545b563eb00d0[m i2c: npcm: disable interrupt enable bit before devm_request_irq
+[33mabb00a9a85f0d[m drm/amd/display: Fix HPD after gpu reset
+[33m64f3a3523dbcf[m drm/amd/display: Disable PSR-SU on eDP panels
+[33m295fadbd3e52d[m perf/core: Fix low freq setting via IOC_PERIOD
+[33m25a9171d9aef7[m perf/x86: Fix low freqency setting issue
+[33m3b8c444e5dae1[m ALSA: usb-audio: Re-add sample rate quirk for Pioneer DJM-900NXS2
+[33m992775227843c[m ftrace: Avoid potential division by zero in function_stat_show()
+[33m5ae1b18f05ee2[m tracing: Fix bad hist from corrupting named_triggers list
+[33m950866c9a1c9d[m phy: rockchip: naneng-combphy: compatible reset with old DT
+[33m776eaba5b6879[m x86/CPU: Fix warm boot hang regression on AMD SC1100 SoC systems
+[33m93cff66ff002f[m io_uring/net: save msg_control for compat
+[33mc4cb2bfa99513[m uprobes: Reject the shared zeropage in uprobe_write_opcode()
+[33m476c1dfefab8b[m mm: Don't pin ZERO_PAGE in pin_user_pages()
+[33mcffd76d4e9ab5[m net: ipv6: fix dst ref loop on input in rpl lwt
+[33m4c12c3c8abd8b[m net: ipv6: rpl_iptunnel: mitigate 2-realloc issue
+[33m7f9aabbadf809[m net: ipv6: fix dst ref loop on input in seg6 lwt
+[33mc447c5a9c47bb[m net: ipv6: seg6_iptunnel: mitigate 2-realloc issue
+[33mdaff29e076fec[m include: net: add static inline dst_dev_overhead() to dst.h
+[33mcd60e8edfccdd[m net/mlx5: IRQ, Fix null string in debug print
+[33m36c72334bfbe1[m net: mvpp2: cls: Fixed Non IP flow, with vlan tag flow defination.
+[33m320cb2d549f55[m net: Clear old fragment checksum value in napi_reuse_skb
+[33m57cf8c5a7a74f[m tcp: Defer ts_recent changes until req is owned
+[33mbe5a87bd8370d[m ipvs: Always clear ipvs_property flag in skb_scrub_packet()
+[33m09e9fe147e308[m ASoC: es8328: fix route from DAC to output
+[33m90ed67b03a0aa[m net: cadence: macb: Synchronize stats calculations
+[33m5b8dea8d1612d[m ipvlan: ensure network headers are in skb linear part
+[33m7a62b1e44140a[m ipvlan: Prepare ipvlan_process_v4_outbound() to future .flowi4_tos conversion.
+[33m3e8520bca5019[m ipv4: Convert ip_route_input() to dscp_t.
+[33m671fcbf9d1289[m ipv4: Convert icmp_route_lookup() to dscp_t.
+[33mab5c0db82546a[m ipvlan: Unmask upper DSCP bits in ipvlan_process_v4_outbound()
+[33meaba5f6743801[m ipv4: icmp: Unmask upper DSCP bits in icmp_route_lookup()
+[33m28e46a8c2103c[m ipv4: icmp: Pass full DS field to ip_route_input()
+[33m524c341cb16a8[m net/ipv4: add tracepoint for icmp_send
+[33m1774ba1faad2b[m net: set the minimum for net_hotdata.netdev_budget_usecs
+[33m461fb89121a40[m net: loopback: Avoid sending IP packets without an Ethernet header
+[33m3f0ecb5b1b8d6[m afs: Fix the server_list to unuse a displaced server rather than putting it
+[33m1dac4025ebfd3[m afs: Make it possible to find the volumes that are using a server
+[33m916e5a561eaa5[m afs: remove variable nr_servers
+[33m31caad0f59906[m Bluetooth: L2CAP: Fix L2CAP_ECRED_CONN_RSP response
+[33m4eb6de41766eb[m ALSA: usb-audio: Avoid dropping MIDI events at closing multiple ports
+[33mddb610241b45f[m sunrpc: suppress warnings for unused procfs functions
+[33m7051b8df67e72[m RDMA/mlx5: Fix bind QP error cleanup flow
+[33m0282f5afe0c37[m scsi: core: Clear driver private data when retrying request
+[33m65344e7363426[m SUNRPC: Prevent looping due to rpc_signal_task() races
+[33m6f0e029ead992[m SUNRPC: convert RPC_TASK_* constants to enum
+[33ma7c41830ffcd1[m ovl: fix UAF in ovl_dentry_update_reval by moving dput() in ovl_link_up
+[33ma18dc2d70249b[m IB/mlx5: Set and get correct qp_num for a DCT QP
+[33m3fa58a6fbd1e9[m netfilter: allow exp not to be removed in nf_ct_find_expectation
+[33mcd2915581898e[m spi: atmel-quadspi: Fix wrong register value written to MR
+[33m02225f59a0f3b[m spi: atmel-quadspi: Avoid overwriting delay register settings
+[33md48890ef87650[m media: mediatek: vcodec: Fix H264 multi stateless decoder smatch warning
+[33mada4ca5fd5a9d[m block, bfq: fix bfqq uaf in bfq_limit_depth()
+[33meca0025faa96a[m block, bfq: split sync bfq_queues on a per-actuator basis
+[33mcd78b738bceb3[m x86/cpu/kvm: SRSO: Fix possible missing IBPB on VM-Exit
+[33maecca7b4592a9[m ftrace: Do not add duplicate entries in subops manager ops
+[33m8096f2de0512c[m ftrace: Correct preemption accounting for function tracing.
+[33md42364dd66745[m EDAC/qcom: Correct interrupt enable register configuration
+[33m24e8e4523d307[m smb: client: Add check for next_buffer in receive_encrypted_standard()
+[33m5801ed1c0b95a[m mtd: rawnand: cadence: fix incorrect device in dma_unmap_single
+[33me630d32162a8a[m mtd: rawnand: cadence: use dma_map_resource for sdma address
+[33m51a8a44e56594[m mtd: rawnand: cadence: fix error code in cadence_nand_init()
+[33m0a0c255c39132[m mm,madvise,hugetlb: check for 0-length range after end address adjustment
+[33m1ffa1bfc56a2c[m acct: block access to kernel internal filesystems
+[33m5ee8da9bea70d[m acct: perform last write from workqueue
+[33me2b7b9e4a48a4[m ALSA: hda/conexant: Add quirk for HP ProBook 450 G4 mute LED
+[33m1bb8c9cd59cd8[m ALSA: hda: Add error check for snd_ctl_rename_id() in snd_hda_create_dig_out_ctls()
+[33mfde718a585585[m ASoC: fsl_micfil: Enable default case in micfil_set_quality()
+[33m1358d8e07afdf[m nfp: bpf: Add check for nfp_app_ctrl_msg_alloc()
+[33mfcfc00bfec7bb[m drop_monitor: fix incorrect initialization order
+[33mec18520f5edc2[m tee: optee: Fix supplicant wait loop
+[33m64d31ab8c48b5[m drm/i915: Make sure all planes in use by the joiner have their crtc included
+[33m7e75ccfba9bd6[m drm/msm/dpu: Disable dither in phys encoder cleanup
+[33m36c22125e5ea4[m bpf: skip non exist keys in generic_map_lookup_batch
+[33m85f5a43484981[m nvme/ioctl: add missing space in err message
+[33mb5065a10b9807[m drm/msm/dpu: Don't leak bits_per_component into random DSC_ENC fields
+[33m7f7f3f42e8b6c[m nouveau/svm: fix missing folio unlock + put after make_device_exclusive_range()
+[33m51ae6861c4117[m power: supply: da9150-fg: fix potential overflow
+[33mde9be9c3ec25a[m bpf: Fix wrong copied_seq calculation
+[33me410fd600490b[m strparser: Add read_sock callback
+[33mf615fccfc689c[m bpf, test_run: Fix use-after-free issue in eth_skb_pkt_type()
+[33m16985c0980a2f[m drm/rcar-du: dsi: Fix PHY lock bit check
+[33m87858bbf21da2[m tcp: drop secpath at the same time as we currently drop dst
+[33mcb7bea9887712[m net: axienet: Set mac_managed_pm
+[33mff319c9f22cfc[m drm/tidss: Fix race condition while handling interrupt registers
+[33ma0bad5c7c2b41[m arp: switch to dev_getbyhwaddr() in arp_req_set_public()
+[33m36a6e21706035[m drm/tidss: Add simple K2G manual reset
+[33m0f038b945474a[m net: Add non-RCU dev_getbyhwaddr() helper
+[33mcce3ccc0ab409[m flow_dissector: Fix port range key handling in BPF conversion
+[33m8d984c604d133[m flow_dissector: Fix handling of mixed port and port-range keys
+[33m20825e9c4c9fd[m geneve: Suppress list corruption splat in geneve_destroy_tunnels().
+[33mb70fa591b066d[m gtp: Suppress list corruption splat in gtp_net_exit_batch_rtnl().
+[33m501ac6a7e21b8[m ibmvnic: Don't reference skb after sending to VIOS
+[33mc9543af809de4[m ibmvnic: Add stat for tx direct vs tx batched
+[33ma6a19d29fba42[m ibmvnic: Introduce send sub-crq direct
+[33mb92f24529ebb7[m ibmvnic: Return error code on TX scrq flush fail
+[33m36069c768f5dd[m ALSA: hda/cirrus: Correct the full scale volume set logic
+[33m904e746b2e7fa[m geneve: Fix use-after-free in geneve_find_dev().
+[33mc905a30535182[m powerpc/code-patching: Fix KASAN hit by not flagging text patching area as VM_ALLOC
+[33mf67713b21676a[m ALSA: hda/realtek: Fixup ALC225 depop procedure
+[33m10a293b085b38[m powerpc/64s: Rewrite __real_pte() and __rpte_to_hidx() as static inline
+[33me574bf58c34a8[m powerpc/64s/mm: Move __real_pte stubs into hash-4k.h
+[33mac18d78146625[m media: uvcvideo: Remove dangling pointers
+[33m5a0b0bc44f688[m ASoC: rockchip: i2s-tdm: fix shift config for SND_SOC_DAIFMT_DSP_[AB]
+[33mb4d266503d3b2[m media: uvcvideo: Only save async fh if success
+[33m24a942610ee9b[m USB: gadget: f_midi: f_midi_complete to call queue_work
+[33me3bc1a9a67ce3[m usb: gadget: core: flush gadget workqueue after device removal
+[33m7fb673f0f13cc[m USB: gadget: core: create sysfs link between udc and gadget
+[33m9b3e69b5a978e[m media: uvcvideo: Refactor iterators
+[33m3c00e94d00ca0[m media: uvcvideo: Fix crash during unbind if gpio unit is in use
+[33mce8d2e914b0c8[m media: Switch to use dev_err_probe() helper
+[33m4a7c475137939[m soc: mediatek: mtk-devapc: Fix leaking IO map on driver remove
+[33m9b9375831dd56[m soc/mediatek: mtk-devapc: Convert to platform remove callback returning void
+[33mae86c0153763f[m soc: mediatek: mtk-devapc: Fix leaking IO map on error paths
+[33m69fa8a45ebf40[m soc: mediatek: mtk-devapc: Switch to devm_clk_get_enabled()
+[33m77779d1258a28[m tpm: Change to kvalloc() in eventlog/acpi.c
+[33m7a72242c9b47f[m tpm: Use managed allocation for bios event log
+[33m19bb4fc2abf39[m arm64: dts: qcom: sm8450: Fix CDSP memory length
+[33m8ae7a709f6038[m arm64: dts: qcom: trim addresses to 8 digits
+[33m257fa56e891e6[m arm64: dts: mediatek: mt8183: Disable DSI display output by default
+[33m4cc8b0110c0ff[m scsi: core: Do not retry I/Os during depopulation
+[33m79a43ee6ec0d7[m scsi: core: Handle depopulation and restoration in progress
+[33m5c1e84bc75a66[m ASoC: renesas: rz-ssi: Add a check for negative sample_space
+[33mf39ec4e62c004[m clk: mediatek: mt2701-img: add missing dummy clk
+[33m67e7bcc0bb371[m clk: mediatek: mt2701-bdp: add missing dummy clk
+[33mdc7378acd6cd2[m clk: mediatek: mt2701-vdec: fix conversion to mtk_clk_simple_probe
+[33m58af6b786af95[m clk: mediatek: clk-mtk: Add dummy clock ops
+[33m5c5b0e363ba6c[m Bluetooth: qca: Fix poor RF performance for WCN6855
+[33m55d69a2d2ab07[m Bluetooth: qca: Update firmware-name to support board specific nvm
+[33m0986efc3c7fab[m spi: atmel-qspi: Memory barriers after memory-mapped I/O
+[33m0a09d56e1682c[m memcg: fix soft lockup in the OOM process
+[33me3c4cc00e111f[m Bluetooth: qca: Support downloading board id specific NVM for WCN7850
+[33mc788bfef8994b[m spi: atmel-quadspi: Create `atmel_qspi_ops` to support newer SoC families
+[33m756bb7c73f693[m spi: atmel-quadspi: switch to use modern name
+[33mbaaad6765a5a6[m spi: atmel-quadspi: Add support for configuring CS timing
+[33m2ea4658783445[m mm: update mark_victim tracepoints fields
+[33m032fa54f486ea[m md/md-bitmap: Synchronize bitmap_get_stats() with bitmap lifetime
+[33m249d9b9da2c94[m md/md-bitmap: add 'sync_size' into struct md_bitmap_stats
+[33me83e6ea58964c[m md/md-cluster: fix spares warnings for __le64
+[33me5c4b7b19b6b5[m md/md-bitmap: replace md_bitmap_status() with a new helper md_bitmap_get_stats()
+[33ma27c597f262dd[m arm64: mte: Do not allow PROT_MTE on MAP_HUGETLB user mappings
+[33m96d435eb13011[m Revert "exec: fix up /proc/pid/comm in the execveat(AT_EMPTY_PATH) case"
+[33mac6e319e7ca8f[m Merge b3847b6622a3 ("iommu/arm-smmu-v3: Clean up more on probe failure") into android14-6.1-lts
+[33mfd1d84ca7ac48[m Revert "mptcp: handle fastopen disconnect correctly"
+[33mf6d414dac67da[m Merge 73e268b4be27 ("mptcp: handle fastopen disconnect correctly") into android14-6.1-lts
+[33ma32de01c74e21[m Merge 3b5332d416d1 ("mptcp: consolidate suboption status") into android14-6.1-lts
+[33m44b6a8ed8f505[m Revert "usb: typec: tcpci: Prevent Sink disconnection before vPpsShutdown in SPR PPS"
+[33m66c68689308a6[m Merge 495320792721 ("usb: typec: tcpci: Prevent Sink disconnection before vPpsShutdown in SPR PPS") into android14-6.1-lts
+[33m6e376e10ea1e1[m Merge 17d426628cfd ("usb: typec: tcpm: set SRC_SEND_CAPABILITIES timeout to PD_T_SENDER_RESPONSE") into android14-6.1-lts
+[33m11cb0c5d29c8d[m Merge 2c3e83538f08 ("usb: gadget: f_tcm: Fix Get/SetInterface return value") into android14-6.1-lts
+[33mc6490faa0af61[m Merge 93a56dbe1232 ("drivers/card_reader/rtsx_usb: Restore interrupt based detection") into android14-6.1-lts
+[33m9fb90380c184a[m Merge e10b392a7495 ("net: usb: rtl8150: enable basic endpoint checking") into android14-6.1-lts
+[33m015c80255744c[m Merge ad8f71d64a67 ("tools/bootconfig: Fix the wrong format specifier") into android14-6.1-lts
+[33m3e716b1ee2bde[m Revert "bpf: tcp: Mark bpf_load_hdr_opt() arg2 as read-write"
+[33m97750607026a6[m Merge 8f7cc7c76338 ("bpf: tcp: Mark bpf_load_hdr_opt() arg2 as read-write") into android14-6.1-lts
+[33m0bc46e8fb47b6[m Merge be42a09fe898 ("bpf: Send signals asynchronously if !preemptible") into android14-6.1-lts
+[33m50eddb3fc9ed6[m FROMGIT: f2fs: set highest IO priority for checkpoint thread
+[33m0d704e39b1c39[m Merge e397ad3f1653 ("ASoC: Intel: avs: Fix theoretical infinite loop") into android14-6.1-lts
+[33mf75a035e1e644[m Merge "soc: qcom: socinfo: Add support for PineappleQ APQ soc"
+[33m759b090e5d835[m Merge 220883fba325 ("HID: hid-thrustmaster: Fix warning in thrustmaster_probe by adding endpoint check") into android14-6.1-lts
+[33mef5c5ad7df452[m Merge 0f1719a2ba08 ("genirq: Make handle_enforce_irqctx() unconditionally available") into android14-6.1-lts
+[33m309e9dd394f8e[m Revert "OPP: Rearrange entries in pm_opp.h"
+[33m4fd8e25317a37[m Revert "OPP: Introduce dev_pm_opp_find_freq_{ceil/floor}_indexed() APIs"
+[33m44a6d4af33d77[m Revert "OPP: Introduce dev_pm_opp_get_freq_indexed() API"
+[33mf7d6d8d971bcd[m Revert "OPP: Add dev_pm_opp_find_freq_exact_indexed()"
+[33m6811b9303cdd3[m Revert "OPP: Reuse dev_pm_opp_get_freq_indexed()"
+[33mf7d86656cace2[m Revert "OPP: add index check to assert to avoid buffer overflow in _read_freq()"
+[33m3e0043876d00f[m Revert "OPP: fix dev_pm_opp_find_bw_*() when bandwidth table not initialized"
+[33m635b2890f4c00[m Merge 8532fd078d2a ("OPP: fix dev_pm_opp_find_bw_*() when bandwidth table not initialized") into android14-6.1-lts
+[33m3df8fd8f212fe[m Revert "sched/psi: Use task->psi_flags to clear in CPU migration"
+[33m0b3a7df78d7ab[m Revert "sched/fair: Fix value reported by hot tasks pulled in /proc/schedstat"
+[33md4e5cb0cd90f1[m Merge 0764df6b80b3 ("drm/rockchip: vop2: Check linear format for Cluster windows on rk3566/8") into android14-6.1-lts
+[33m9dc51d0d9de70[m ANDROID: abi_gki_aarch64_qcom: Update symbol list
+[33m2db7267760894[m soc: qcom: socinfo: Add support for PineappleQ APQ soc
+[33mf7e5590104c62[m Merge "usb: dwc3: dwc3-msm-core: Fix NULL pointer dereference in host notifier"
+[33m64361b13916a3[m Merge "ubi: Use PAGE_SIZE as size field for ubi sysfs show attributes"
+[33maa1b2e7ef7dc5[m Merge "defconfig: msm: enable remote debugger driver"
+[33mf90f5355a910b[m Merge "driver: virtio_mmio: Move hibernate callbacks to noirq_suspend phase"
+[33m9b6f2b34a5184[m Merge "arm64: defconfig: Enable HS and SS PHY configurations"
+[33m471a10d3af3b5[m ANDROID: mm/memfd-ashmem-shim: Fix variable length array usage
+[33m6b227a1f7460a[m ANDROID: GKI: Update symbol list for xiaomi
+[33meaffa3e34155d[m ANDROID: mm: add a new vendor hook in filemap_map_pages
+[33m651cca504261f[m Merge "build: config: Add build support for Seraph TUIVM"
+[33mb069d7675ca3c[m arm64: defconfig: Enable HS and SS PHY configurations
+[33mbbca0d9981524[m defconfig: msm: enable remote debugger driver
+[33mbd509dc92ae29[m ubi: Use PAGE_SIZE as size field for ubi sysfs show attributes
+[33m28485ac5103a3[m ubi: Add scrub_all support to UBI
+[33m5558b212a0831[m Merge "iio: adc: qcom-spmi-adc5-gen3:update bus index for virtual channel"
+[33mc6c9fca2406a8[m Merge "modules.blocklist: Blocklist ipclite_test module"
+[33m41f7e70a7011b[m Merge "iio: adc: qcom-spmi-adc5-gen3: Update virtual channel definition"
+[33m5978eadaae611[m usb: dwc3: dwc3-msm-core: Fix NULL pointer dereference in host notifier
+[33mb7cf1fea8ca61[m Merge "clk: qcom: gcc-anorak: Update rcg ops for sdcc clocks"
+[33mfa3cc11118de1[m ANDROID: GKI: Enable CONFIG_MEMFD_ASHMEM_SHIM
+[33m6355ece3ca029[m ANDROID: mm: shmem: Use memfd-ashmem-shim ioctl handler
+[33m004c31328abf1[m ANDROID: mm/memfd-ashmem-shim: Introduce shim layer
+[33mb4fef39187504[m ANDROID: ashmem: Add toggle to ignore requests to deny PROT_EXEC mappings
+[33mef10c0ef7d6b7[m ANDROID: ashmem: Add toggle to ignore requests to deny PROT_READ mappings
+[33m9f6b96dfcaf14[m ANDROID: ashmem: Add support for disabling unpinning feature
+[33m5d76ce81a13c1[m modules.blocklist: Blocklist ipclite_test module
+[33m1bced5d3ec4fe[m Merge "q2spi-msm-geni: unmap sleep packet dma buffer in return path"
+[33m15e15c3009b65[m Merge "iio: adc: qcom-vadc-common: refactor code to limit code duplication"
+[33m680fbb5c1e995[m Merge "defconfig : Enabled CONFIG_DEBUG_SPINLOCK config"
+[33m8a3832884ce3d[m ANDROID: of: add export symbol for of_update_property
+[33md24e78ee4c29d[m iio: adc: qcom-spmi-adc5-gen3:update bus index for virtual channel
+[33m4deb2cd703827[m ANDROID: Update the ABI symbol list
+[33m75c1d11b88601[m ANDROID: swapfile: Add EXPORT_SYMBOL_GPL for page_swap_info
+[33m0a9739e7a5133[m Merge "clk: qcom: Add pm ops for gdsc"
+[33mba2a152c742df[m[33m ([m[1;33mtag: [m[1;33mKERNEL.PLATFORM.3.0.r1-11700-kernel.0[m[33m)[m soc: qcom: socinfo: Add support for CLIFFS Gaming SoC
+[33mf27efe75fc876[m UPSTREAM: io_uring: fix io_req_prep_async with provided buffers
+[33m719cffaab02b4[m ANDROID: GKI: Update symbol list for BCMSTB
+[33m42d112c38548a[m Merge "Merge keystone/android14-6.1-keystone-qcom-release.6.1.118+ (94fd1e9) into qcom-6.1"
+[33m6ad8aa12e1745[m ANDROID: abi_gki_aarch64_qcom: Update symbol list
+[33m45755ee7b657d[m ANDROID: of: add export symbol for of_update_property
+[33mcf7683f719568[m ANDROID: GKI: Update oplus symbol list
+[33m1a0a3ac52859f[m Merge "Input: iqs7211 - point to match data directly"
+[33m366b37994f65e[m iio: adc: qcom-spmi-adc5-gen3: Update virtual channel definition
+[33mb434d7e6d372c[m iio: adc: qcom-spmi-adc5-gen3: Add support for ADC5 GEN4
+[33m133a14a5e9fe7[m Merge "arm64: defconfig: Enable rpmh-regulator drivers for seraph"
+[33md637c6c9b8b21[m Merge "usb: phy: ssusb: Add support to limit phy to USB3 only capable"
+[33m4e5539fd28dd9[m Merge "soc: qcom: hab: Add Non Blocking support for hab open"
+[33ma4bd15b01cc5f[m Merge "dmaengine: msm_gpi: fix to avoid null pointer access"
+[33m75a3896c5ece0[m Merge "soc: qcom: hab: Configure the DMA attribute of export memory to DMA_BIDIRECTIONAL"
+[33m6c8890a0b774e[m clk: qcom: gcc-anorak: Update rcg ops for sdcc clocks
+[33mb3026e7cefcd3[m Merge branch 'android14-6.1' into android14-6.1-lts
+[33ma624f97c9afe4[m Merge tag 'android14-6.1.128_r00' into android14-6.1
+[33m52a41f0bf15cd[m ANDROID: usb: typec: tcpci: Combine the parameters of set_auto_vbus_discharge_threshold
+[33mf84d5a5fadca1[m FROMGIT: usb: typec: tcpci: Prevent Sink disconnection before vPpsShutdown in SPR PPS
+[33m3a83585836269[m[33m ([m[1;33mtag: [m[1;33mv6.1.129[m[33m)[m Linux 6.1.129
+[33m25ffe92294ebc[m x86/i8253: Disable PIT timer 0 when not in use
+[33m552e7938b4d7f[m drm/amd/display: Add NULL pointer check for kzalloc
+[33mf81302decd642[m f2fs: fix to wait dio completion
+[33m0264d6b73eaf3[m can: ems_pci: move ASIX AX99100 ids to pci_ids.h
+[33m1dc81fbe69128[m ARM: dts: dra7: Add bus_dma_limit for l4 cfg bus
+[33m43590d25d64d8[m selftests: rtnetlink: update netdevsim ipsec output format
+[33mab2121f9e778d[m netdevsim: print human readable IP address
+[33m9e9953f5e4d6d[m net: dsa: fix netdev_priv() dereference before check on non-DSA netdevice events
+[33m55742de2cda0a[m parport_pc: add support for ASIX AX99100
+[33m06c3423c62b39[m serial: 8250_pci: add support for ASIX AX99100
+[33m58c27fa7a610b[m nilfs2: protect access to buffers with no active references
+[33m19296737024cd[m nilfs2: do not force clear folio if buffer is referenced
+[33m217114cf30ad8[m nilfs2: do not output warnings when clearing dirty buffers
+[33m2a21bad9964c9[m i3c: master: cdns: Fix use after free vulnerability in cdns_i3c_master Driver Due to Race Condition
+[33m731fd4b06c091[m alpha: replace hardcoded stack offsets with autogenerated ones
+[33mc986a5fb15eda[m mm: gup: fix infinite loop within __get_longterm_locked
+[33m5b2608b5cfd43[m arm64: tegra: Fix typo in Tegra234 dce-fabric compatible
+[33m6325eab6c108f[m iommu: Return right value in iommu_sva_bind_device()
+[33me43e2461abea3[m x86/static-call: Remove early_boot_irqs_disabled check to fix Xen PVH dom0
+[33m8255da6dd443f[m kdb: Do not assume write() callback available
+[33m95036d4c01167[m drm/v3d: Stop active perfmon if it is being destroyed
+[33m042eebaed44b7[m drm/tidss: Clear the interrupt status for interrupts being disabled
+[33m43a54105af09f[m drm/tidss: Fix issue in irq handling causing irq-flood issue
+[33me8af3632a7f2d[m ipv6: mcast: add RCU protection to mld_newpack()
+[33ma9319d800b570[m ndisc: extend RCU protection in ndisc_send_skb()
+[33m7e01abc34e87a[m openvswitch: use RCU protection in ovs_vport_cmd_fill_info()
+[33mf189654459423[m arp: use RCU protection in arp_xmit()
+[33m784eb2376270e[m neighbour: use RCU protection in __neigh_notify()
+[33m9b4d091de5d0d[m neighbour: delete redundant judgment statements
+[33m3c2d705f5adf5[m ndisc: use RCU protection in ndisc_alloc_skb()
+[33m84212387caadb[m ipv6: use RCU protection in ip6_default_advmss()
+[33md13d8a3486ae4[m flow_dissector: use RCU protection to fetch dev_net()
+[33m85a1d9b0b43fa[m ipv4: icmp: convert to dev_net_rcu()
+[33mea07480b23225[m ipv4: use RCU protection in __ip_rt_update_pmtu()
+[33mb1f7bdee5750d[m net: ipv4: Cache pmtu for all packet paths if multipath enabled
+[33m2e0b96d8edc66[m ipv4: use RCU protection in inet_select_addr()
+[33mba1848b75dde7[m ipv4: use RCU protection in rt_is_expired()
+[33mffd8bed1b4f51[m ipv4: use RCU protection in ipv4_default_advmss()
+[33me2b01044d94ec[m net: add dev_net_rcu() helper
+[33m7bafb66f54568[m net: treat possible_net_t net pointer as an RCU one and add read_pnet_rcu()
+[33m23dca5be79df0[m ipv4: add RCU protection to ip4_dst_hoplimit()
+[33m852805b6cbdb6[m clocksource: Use migrate_disable() to avoid calling get_random_u32() in atomic context
+[33m0bebe3e832d05[m clocksource: Use pr_info() for "Checking clocksource synchronization" message
+[33m791d0082c1482[m btrfs: fix hole expansion when writing at an offset beyond EOF
+[33me190ae6413fb9[m mlxsw: Add return value check for mlxsw_sp_port_get_stats_raw()
+[33m6888e6835b3b8[m mmc: mtk-sd: Fix register settings for hs400(es) mode
+[33m4e5a36ab6607a[m arm64: Handle .ARM.attributes section in linker scripts
+[33m285f023740bf1[m regmap-irq: Add missing kfree()
+[33m27a39d006f85e[m partitions: mac: fix handling of bogus partition table
+[33m1819802e2931f[m gpio: stmpe: Check return value of stmpe_reg_read in stmpe_gpio_irq_sync_unlock
+[33m4e3a60429a029[m gpiolib: acpi: Add a quirk for Acer Nitro ANV14
+[33m6b67893e34f4f[m alpha: align stack for page fault and user unaligned trap handlers
+[33md470522c597b7[m serial: 8250: Fix fifo underflow on flush
+[33m28e51dd4f28bf[m cgroup: fix race between fork and cgroup.kill
+[33md7c19014762ae[m efi: Avoid cold plugged memory for placing the kernel
+[33m17d24ff755a80[m alpha: make stack 16-byte aligned (most cases)
+[33m44218221b652b[m can: j1939: j1939_sk_send_loop(): fix unable to send messages with data length zero
+[33md79de85b481bf[m can: c_can: fix unbalanced runtime PM disable in error path
+[33m84b9ac59978a6[m can: ctucanfd: handle skb allocation failure
+[33mba105f7a64898[m USB: serial: option: drop MeiG Smart defines
+[33maedb158645e5f[m USB: serial: option: fix Telit Cinterion FN990A name
+[33mae25e7c2cb37d[m USB: serial: option: add Telit Cinterion FN990B compositions
+[33m4f87d7a63e886[m USB: serial: option: add MeiG Smart SLM828
+[33m8ca7d884139c9[m usb: cdc-acm: Fix handling of oversized fragments
+[33m7828e9363ac4d[m usb: cdc-acm: Check control transfer buffer size before access
+[33mfd128ae741e8a[m USB: cdc-acm: Fill in Renesas R-Car D3 USB Download mode quirk
+[33mc3720b04df84b[m USB: hub: Ignore non-compliant devices with too many configs or interfaces
+[33m9f6860a9c1130[m usb: gadget: f_midi: fix MIDI Streaming descriptor lengths
+[33me90b0bc51e5e4[m USB: Add USB_QUIRK_NO_LPM quirk for sony xperia xz1 smartphone
+[33m0ac7f61304576[m USB: quirks: add USB_QUIRK_NO_LPM quirk for Teclast dist
+[33mf7e2ded996d54[m usb: core: fix pipe creation for get_bMaxPacketSize0
+[33md8490c57b6e2e[m USB: pci-quirks: Fix HCCPARAMS register error for LS7A EHCI
+[33md6a9106afbab2[m usb: dwc2: gadget: remove of_node reference upon udc_stop
+[33mdb8686b24af1a[m usb: roles: set switch registered flag early on
+[33ma298df1bbe3e5[m usb: dwc3: Fix timeout issue during controller enter/exit from halt state
+[33m74af18a74700e[m usb: gadget: udc: renesas_usb3: Fix compiler warning
+[33md00438789b496[m perf/x86/intel: Ensure LBRs are disabled when a CPU is starting
+[33m0105b41790675[m KVM: nSVM: Enter guest mode before initializing nested NPT MMU
+[33m5393cf2231241[m KVM: x86: Reject Hyper-V's SEND_IPI hypercalls if local APIC isn't in-kernel
+[33m3484ea33157bc[m drm/amdgpu: avoid buffer overflow attach in smu_sys_set_pp_table()
+[33m781a06fd265a8[m batman-adv: Drop unmanaged ELP metric worker
+[33m792a14c90dab3[m batman-adv: Ignore neighbor throughput metrics in error case
+[33m7eb5dd2016956[m batman-adv: fix panic during interface removal
+[33m40336ad6ec342[m ASoC: Intel: bytcr_rt5640: Add DMI quirk for Vexia Edu Atla 10 tablet 5V
+[33m1da2697307dad[m orangefs: fix a oob in orangefs_debug_write
+[33mb47002ed65ade[m x86/mm/tlb: Only trim the mm_cpumask once a second
+[33m04bac40ad5d6c[m selftests: gpio: gpio-sim: Fix missing chip disablements
+[33m0db813696df1e[m Grab mm lock before grabbing pt lock
+[33mf601bb7d537eb[m vfio/pci: Enable iowrite64 and ioread64 for vfio pci
+[33m8b1d868376e88[m rtla/timerlat_top: Abort event processing on second signal
+[33mbb38fcfa38a66[m rtla/timerlat_hist: Abort event processing on second signal
+[33m5e7b6e44468c3[m scsi: ufs: bsg: Set bsg_queue to NULL after removal
+[33me86cc66b106d8[m PCI: switchtec: Add Microchip PCI100X device IDs
+[33md2eb7e87329bd[m PCI/DPC: Quirk PIO log size for Intel Raptor Lake-P
+[33m86307e443c584[m media: vidtv: Fix a null-ptr-deref in vidtv_mux_stop_thread
+[33ma4dd6fc7ef558[m media: cxd2841er: fix 64-bit division on gcc-9
+[33m7bbbd311dd503[m fbdev: omap: use threaded IRQ for LCD DMA
+[33mb9c5fb07398bf[m RDMA/efa: Reset device on probe failure
+[33mca2701997c687[m x86/xen: allow larger contiguous memory regions in PV guests
+[33m7a32e55815e89[m xen: remove a confusing comment on auto-translated guest I/O
+[33m099606a7b2d53[m xen/swiotlb: relax alignment requirements
+[33m6edce95922534[m gpio: bcm-kona: Add missing newline to dev_err format string
+[33m1c1b7260c9071[m gpio: bcm-kona: Make sure GPIO bits are unlocked when requesting IRQ
+[33ma6d8655b9ca24[m gpio: bcm-kona: Fix GPIO lock/unlock for banks above bank 0
+[33mfae3c2825d45a[m drm/i915/selftests: avoid using uninitialized context
+[33m99354bc51c461[m cgroup: Remove steal time from usage_usec
+[33m4ff25f0b18d1d[m arm64: cacheinfo: Avoid out-of-bounds write to cacheinfo array
+[33m4512482e4805d[m team: better TEAM_OPTION_TYPE_STRING validation
+[33m79aea5e55156c[m vxlan: check vxlan_vnigroup_init() return value
+[33mc7574740be8ce[m vrf: use RCU protection in l3mdev_l3_out()
+[33md77570ae43ec7[m ndisc: ndisc_send_redirect() must use dev_get_by_index_rcu()
+[33m90056ece99966[m ax25: Fix refcount leak caused by setting SO_BINDTODEVICE sockopt
+[33m436f48c864186[m HID: hid-thrustmaster: fix stack-out-of-bounds read in usb_check_int_endpoints()
+[33m4e7113f591163[m HID: multitouch: Add NULL check in mt_input_configured
+[33m457bdeffcab44[m pinctrl: cy8c95x0: Respect IRQ trigger settings from firmware
+[33m38d345f612503[m NFSD: fix hang in nfsd4_shutdown_callback
+[33m09b288fb7f4ea[m maple_tree: simplify split calculation
+[33m2e59b2b687825[m nfsd: clear acl_access/acl_default after releasing them
+[33mc4720d0490ca3[m maple_tree: fix static analyser cppcheck issue
+[33m0c7ba1d65c291[m btrfs: avoid monopolizing a core when activating a swap file
+[33m8c481939fb1db[m Revert "btrfs: avoid monopolizing a core when activating a swap file"
+[33m91932db1d96b2[m pps: Fix a use-after-free
+[33mde5bd24197bd9[m tty: xilinx_uartps: split sysrq handling
+[33mb740d3c3cb405[m mptcp: prevent excessive coalescing on receive
+[33m22b0734c9401a[m mptcp: pm: only set fullmesh for subflow endp
+[33md6bba3ece9601[m cachefiles: Fix NULL pointer dereference in object->file
+[33m918cf2616af59[m ocfs2: check dir i_size in ocfs2_find_entry
+[33mb880f21f618ad[m gpio: xilinx: remove excess kernel doc
+[33m846d74f329d6d[m net/ncsi: use dev_set_mac_address() for Get MC MAC Address handling
+[33mba266064713c2[m MIPS: ftrace: Declare ftrace_get_parent_ra_addr() as static
+[33m58d38d324589e[m io_uring/rw: commit provided buffer state on async
+[33ma1b17713b32c7[m io_uring: fix io_req_prep_async with provided buffers
+[33m233b210a678bd[m io_uring: fix multishots with selected buffers
+[33m30ab0f6c90f89[m rtc: zynqmp: Fix optional clock name property
+[33m5d1041c76de65[m ptp: Ensure info->enable callback is always set
+[33mcd78038467da8[m pinctrl: samsung: fix fwnode refcount cleanup if platform_get_irq_optional() fails
+[33m3b88ea45a64bc[m rtla/timerlat_top: Stop timerlat tracer on signal
+[33mc56ba3ea8e3c9[m misc: fastrpc: Fix copy buffer page size
+[33mb854ac0024db0[m rtla/timerlat_hist: Stop timerlat tracer on signal
+[33m9c37be4abf7fe[m misc: fastrpc: Fix registered buffer page address
+[33m6074e23ded575[m rtla: Add trace_instance_stop
+[33m894efd31d02a4[m misc: fastrpc: Deregister device nodes properly in error scenarios
+[33m463c1d66c00c6[m rtla/osnoise: Distinguish missing workload option
+[33m220b4a9012764[m net: phy: c45-tjaxx: add delay between MDIO write and read in soft_reset
+[33m9dc1a3404cd02[m net/ncsi: wait for the last response to Deselect Package before configuring channel
+[33me56db83b32cd6[m mtd: onenand: Fix uninitialized retlen in do_otp_read()
+[33m2e432c894863a[m irqchip/apple-aic: Only handle PMC interrupt as FIQ when configured so
+[33m3faa17654dec2[m i3c: master: Fix missing 'ret' assignment in set_speed()
+[33md5a461c315e5f[m NFC: nci: Add bounds checking in nci_hci_create_pipe()
+[33m3d725abdfdd97[m mailbox: tegra-hsp: Clear mailbox before using message
+[33mf3d80f34f5844[m nilfs2: fix possible int overflows in nilfs_fiemap()
+[33m6e143eb4ab83c[m ocfs2: handle a symlink read error correctly
+[33mfc477506c5adb[m ocfs2: fix incorrect CPU endianness conversion causing mount failure
+[33mf8e05df84bb00[m pnfs/flexfiles: retry getting layout segment for reads
+[33m805bf50521523[m selftests: mptcp: connect: -f: no reconnect
+[33m1485932496a1b[m vfio/platform: check the bounds of read/write syscalls
+[33m5688ad8098b07[m io_uring/net: don't retry connect operation on EPOLLERR
+[33m66d90453b43a1[m nvmem: core: improve range check for nvmem_cell_write()
+[33m573d939d61dd3[m nvmem: qcom-spmi-sdam: Set size in struct nvmem_config
+[33m5d5b673b4dd26[m crypto: qce - unregister previously registered algos in error path
+[33m480546e656896[m crypto: qce - fix goto jump in error path
+[33ma8f8cf87059ed[m ata: libata-sff: Ensure that we cannot write outside the allocated buffer
+[33m6582174806135[m mm: kmemleak: fix upper boundary check for physical address objects
+[33mbf7c1d3b69a08[m media: uvcvideo: Remove redundant NULL assignment
+[33me5799a44c5b29[m media: uvcvideo: Fix event flags in uvc_ctrl_send_events
+[33m26f7a4767ce41[m media: ccs: Fix cleanup order in ccs_probe()
+[33m33da7da2c55ca[m media: ccs: Fix CCS static data parsing for large block sizes
+[33m2e33ca528d780[m media: ov5640: fix get_light_freq on auto
+[33m2818d755e6b94[m media: mc: fix endpoint iteration
+[33mbb58ccba1f201[m soc: qcom: smem_state: fix missing of_node_put in error path
+[33m71c3926459457[m iio: light: as73211: fix channel handling in only-color triggered buffer
+[33m07bca7b592434[m media: ccs: Clean up parsed CCS static data on parse failure
+[33m621b80eb88d7b[m kfence: skip __GFP_THISNODE allocations on NUMA systems
+[33maa2ed4ee8d688[m rv: Reset per-task monitors also for idle tasks
+[33mfc440b631a0ae[m ACPI: PRM: Remove unnecessary strict handler address checks
+[33m48baba96ae11e[m xfs: Add error handling for xfs_reflink_cancel_cow_range
+[33m95e1bd05dad19[m arm64: tegra: Disable Tegra234 sce-fabric node
+[33mb2eb8ceab50b5[m crypto: qce - fix priority to be less than ARMv8 CE
+[33m2355c1bdf1035[m arm64: dts: qcom: sm8450: Fix MPSS memory length
+[33m14035ff0b0876[m arm64: dts: qcom: sm8350: Fix MPSS memory length
+[33md645891777929[m arm64: dts: qcom: sm6350: Fix MPSS memory length
+[33md867750edb900[m arm64: dts: qcom: sm6350: Fix ADSP memory length
+[33m0f82f6f155638[m x86/boot: Use '-std=gnu11' to fix build with GCC 15
+[33me24fc5b7bca9d[m kbuild: Move -Wenum-enum-conversion to W=2
+[33mdb2f0cc2e9674[m scsi: storvsc: Set correct data length for sending SCSI command without payload
+[33m57c029cab0d90[m scsi: qla2xxx: Move FCE Trace buffer allocation to user control
+[33me1caac00367a2[m nvme-pci: Add TUXEDO IBP Gen9 to Samsung sleep quirk
+[33me2d8d553091a7[m nvme-pci: Add TUXEDO InfinityFlex to Samsung sleep quirk
+[33mf51027ed9b785[m PCI: endpoint: Finish virtual EP removal in pci_epf_remove_vepf()
+[33m490b3a30aa5e8[m arm64: tegra: Fix Tegra234 PCIe interrupt-map
+[33md26408df0e25f[m ALSA: hda: Fix headset detection failure due to unstable sort
+[33me83b3f494acad[m ALSA: hda/realtek: Enable headset mic on Positivo C6400
+[33m996ca83c4610d[m Revert "media: uvcvideo: Require entities to have a non-zero unique ID"
+[33m6c26619effb1b[m block: don't revert iter for -EIOCBQUEUED
+[33mb0dd4a661c615[m mips/math-emu: fix emulation of the prefx instruction
+[33m7428e565c46f2[m dm-crypt: track tag_offset in convert_context
+[33meaf019088ce68[m dm-crypt: don't update io->sector after kcryptd_crypt_write_io_submit()
+[33m3a43f1d99b20a[m powerpc/pseries/eeh: Fix get PE state translation
+[33mb5a3ec35c738a[m MIPS: Loongson64: remove ROM Size unit in boardinfo
+[33m77c97ed7c8638[m serial: sh-sci: Do not probe the serial port if its slot in sci_ports[] is in use
+[33mcf174b3c1bd33[m serial: sh-sci: Drop __initdata macro for port_cfg
+[33mbde20431745a3[m usb: gadget: f_tcm: Don't prepare BOT write request twice
+[33m9c88b3a3fae4d[m soc: qcom: socinfo: Avoid out of bounds read of serial number
+[33mc38aea9f67e89[m usb: gadget: f_tcm: ep_autoconfig with fullspeed endpoint
+[33mcf016dfd20eb1[m ASoC: acp: Support microphone from Lenovo Go S
+[33mc686d44fe45eb[m usb: gadget: f_tcm: Decrement command ref count on cleanup
+[33mff42148e63d70[m usb: gadget: f_tcm: Translate error to sense
+[33m4e51d6d093e76[m wifi: brcmfmac: fix NULL pointer dereference in brcmf_txfinalize()
+[33md8d6db8e98455[m of: Correct child specifier used as input of the 2nd nexus node
+[33m5c34c430c0b0d[m wifi: rtlwifi: rtl8821ae: Fix media status report
+[33m92a3de55cf02e[m scsi: ufs: core: Fix the HIGH/LOW_TEMP Bit Definitions
+[33m855be3006f62f[m HID: hid-sensor-hub: don't use stale platform-data on remove
+[33m92ca4f40f6c5d[m efi: libstub: Use '-std=gnu11' to fix build with GCC 15
+[33m0e83ec8c8ef01[m of: reserved-memory: Fix using wrong number of cells to get property 'alignment'
+[33m0515b1a75fe98[m of: Fix of_find_node_opts_by_path() handling of alias+path+options
+[33m99bf7c841458d[m clk: qcom: clk-rpmh: prevent integer overflow in recalc_rate
+[33m431b6ef2714be[m blk-cgroup: Fix class @block_class's subsystem refcount leakage
+[33mabfc1917975f9[m clk: qcom: gcc-mdm9607: Fix cmd_rcgr offset for blsp1_uart6 rcg
+[33m3daca90508572[m clk: qcom: dispcc-sm6350: Add missing parent_map for a clock
+[33m39336edd14a59[m clk: qcom: gcc-sm6350: Add missing parent_map for two clocks
+[33md2331d5250e62[m clk: qcom: clk-alpha-pll: fix alpha mode configuration
+[33m60a2399ccef41[m clk: sunxi-ng: a100: enable MMC clock reparenting
+[33m7a58944173326[m Bluetooth: L2CAP: accept zero as a special value for MTU auto-selection
+[33m915697c2e69ac[m Revert "drm/amd/display: Use HW lock mgr for PSR1"
+[33m297ce7f544aa6[m Bluetooth: L2CAP: handle NULL sock pointer in l2cap_sock_alloc
+[33m490163938095e[m drm/amd/pm: Mark MM activity as unsupported
+[33m081ae90cb4e00[m drm/i915: Drop 64bpp YUV formats from ICL+ SDR planes
+[33m17f556e542ab0[m drm/komeda: Add check for komeda_get_layer_fourcc_list()
+[33m3c81bcf66383d[m drm/i915/guc: Debug print LRC state entries only if the context is pinned
+[33m27cf74b92e01d[m arm64: dts: rockchip: increase gmac rx_delay on rk3399-puma
+[33m760568c1f62ea[m ksmbd: fix integer overflows on 32 bit systems
+[33m43f19483ad9cf[m drm/rockchip: cdn-dp: Use drm_connector_helper_hpd_irq_event()
+[33m7805d1e745017[m KVM: s390: vsie: fix some corner-cases when grabbing vsie pages
+[33m95506c7f33452[m binfmt_flat: Fix integer overflow bug on 32 bit systems
+[33md817e510662fd[m KVM: Explicitly verify target vCPU is online in kvm_get_vcpu()
+[33me999c3020aebe[m fs/proc: do_task_stat: Fix ESP not readable during coredump
+[33mb6cbef573cf95[m m68k: vga: Fix I/O defines
+[33m2eb70a0b5bd3c[m s390/futex: Fix FUTEX_OP_ANDN implementation
+[33m7879a3e54cc4d[m smb: client: change lease epoch type from unsigned int to __u16
+[33mc6b9eaeff4477[m drm/modeset: Handle tiled displays in pan_display_atomic.
+[33maab59f1ca94d5[m ALSA: hda/realtek: Enable Mute LED on HP Laptop 14s-fq1xxx
+[33mcd413f57e86e2[m leds: lp8860: Write full EEPROM, not only half of it
+[33m4e46560fa35d6[m cpufreq: s3c64xx: Fix compilation warning
+[33m24d7e1f9caa0e[m net: sched: Fix truncation of offloaded action statistics
+[33m2750159f52695[m tun: revert fix group permission check
+[33m7b79ca9a1de6a[m netem: Update sch->q.qlen before qdisc_tree_reduce_backlog()
+[33m7998880cb4b2d[m ACPI: property: Fix return value for nval == 0 in acpi_data_prop_read()
+[33m64934b8b8efde[m x86/xen: add FRAME_END to xen_hypercall_hvm()
+[33m522d726824cc5[m x86/xen: fix xen_hypercall_hvm() to not clobber %rbx
+[33m667f61b3498df[m net: rose: lock the socket in rose_bind()
+[33m177c1b524666b[m net: atlantic: fix warning during hot unplug
+[33m3d3cce89ae0a9[m gpio: pca953x: Improve interrupt support
+[33m1b87044469352[m udp: gso: do not drop small packets when PMTU reduces
+[33mfe466eeef30d4[m tg3: Disable tg3 PCIe AER on system reboot
+[33mf8f7d4d16f2c4[m gpu: drm_dp_cec: fix broken CEC adapter properties check
+[33m8890f690c5c3f[m firmware: iscsi_ibft: fix ISCSI_IBFT Kconfig entry
+[33m7b5aafd195b2f[m nvme: handle connectivity loss in nvme_set_queue_count
+[33m99b549bba1bb0[m xfs: don't over-report free space or inodes in statvfs
+[33md7d9c694d3dcb[m xfs: report realtime block quota limits on realtime directories
+[33mf0ed2d0abc021[m gpio: xilinx: Convert gpio_lock to raw spinlock
+[33m39255cac80d15[m gpio: xilinx: Convert to immutable irq_chip
+[33mb0a199accf8f6[m net/ncsi: fix locking in Get MAC Address handling
+[33mae0cd719883ed[m net/ncsi: Add NC-SI 1.2 Get MC MAC Address command
+[33m7ae96eba35036[m usb: chipidea: ci_hdrc_imx: decrement device's refcount in .remove() and in the error path of .probe()
+[33mb2757f2523a9e[m usb: chipidea/ci_hdrc_imx: Convert to platform remove callback returning void
+[33mbce6adebc9c5c[m KVM: e500: always restore irqs
+[33mdeead14da7478[m KVM: PPC: e500: Use __kvm_faultin_pfn() to handle page faults
+[33md2004572fc301[m KVM: PPC: e500: Mark "struct page" pfn accessed before dropping mmu_lock
+[33m8b92e9cc04e71[m KVM: PPC: e500: Mark "struct page" dirty in kvmppc_e500_shadow_map()
+[33m86aca3233f48b[m platform/x86: acer-wmi: Ignore AC events
+[33m28c35589a555b[m Input: allocate keycode for phone linking
+[33m6d65d560c0b60[m ASoC: amd: Add ACPI dependency to fix build error
+[33mb3847b6622a32[m iommu/arm-smmu-v3: Clean up more on probe failure
+[33mb65ba768302ad[m ASoC: soc-pcm: don't use soc_pcm_ret() on .prepare callback
+[33m6821918f45194[m x86/kexec: Allocate PGD for x86_64 transition page tables separately
+[33m4f8b210823cc2[m platform/x86: int3472: Check for adev == NULL
+[33m14fc53fb25b0a[m selftests/net/ipsec: Fix Null pointer dereference in rtattr_pack()
+[33m5328b25bbdfb8[m tipc: re-order conditions in tipc_crypto_key_rcv()
+[33m3a78d7c76b04c[m mmc: sdhci-msm: Correctly set the load for the regulator
+[33m0b5ccf9a4e9ea[m net: wwan: iosm: Fix hibernation by re-binding the driver around it
+[33m75e65b983c5e2[m Bluetooth: MGMT: Fix slab-use-after-free Read in mgmt_remove_adv_monitor_sync
+[33m87fc26b018627[m APEI: GHES: Have GHES honor the panic= setting
+[33mf2e5a46a27d79[m i2c: Force ELAN06FA touchpad I2C bus freq to 100KHz
+[33m7ce13d8b59ce9[m wifi: iwlwifi: avoid memory leak
+[33maf525a8b2ab85[m wifi: brcmfmac: Check the return value of of_property_read_string_index()
+[33m67adfca904ca6[m net/mlx5: use do_aux_work for PHC overflow checks
+[33m408c7704ced99[m HID: Wacom: Add PCI Wacom device support
+[33mabf856bd8e1bf[m mfd: lpc_ich: Add another Gemini Lake ISA bridge PCI device-id
+[33ma01c200fa7eb5[m tomoyo: don't emit warning in tomoyo_write_control()
+[33mada9df08b3ef6[m wifi: brcmsmac: add gain range check to wlc_phy_iqcal_gainparams_nphy()
+[33md79510882433c[m mmc: core: Respect quirk_max_rate for non-UHS SDIO card
+[33mb2c0850a31b4e[m tun: fix group permission check
+[33ma0dec65f88c8d[m safesetid: check size of policy writes
+[33m505899fb11ab6[m drm/bridge: it6505: fix HDCP CTS compare V matching
+[33m2bdeb89b8aca2[m drm/bridge: it6505: fix HDCP encryption when R0 ready
+[33m8c335d14410a3[m drm/bridge: it6505: fix HDCP Bstatus check
+[33m385b842b91558[m drm/bridge: it6505: Change definition MAX_HDCP_DOWN_STREAM_COUNT
+[33m231ebd6ee902a[m drm/amd/display: Fix Mode Cutoff in DSC Passthrough to DP2.1 Monitor
+[33m9a6d43844de24[m printk: Fix signed integer overflow when defining LOG_BUF_LEN_MAX
+[33mb04b69819bc93[m drm/virtio: New fence for every plane update
+[33m0f4fdc38f7ebf[m x86/amd_nb: Restrict init function to AMD-based systems
+[33m448c419de6680[m lockdep: Fix upper limit for LOCKDEP_*_BITS configs
+[33m1ebadf0c1559e[m sched: Don't try to catch up excess steal time.
+[33mf8b7f725cae71[m btrfs: convert BUG_ON in btrfs_reloc_cow_block() to proper error handling
+[33mdb4223632a1ee[m btrfs: fix data race when accessing the inode's disk_i_size at btrfs_drop_extents()
+[33mb45605fac3dec[m exec: fix up /proc/pid/comm in the execveat(AT_EMPTY_PATH) case
+[33m4dcd3360bc9f7[m arm64/mm: Ensure adequate HUGE_MAX_HSTATE
+[33m6ba4663ada6c6[m btrfs: fix use-after-free when attempting to join an aborted transaction
+[33me382b6946d03c[m pinctrl: stm32: fix array read out of bound
+[33m62d33b9e68bd7[m s390: Add '-std=gnu11' to decompressor and purgatory CFLAGS
+[33mce0ef98de08f9[m ptp: Properly handle compat ioctls
+[33mca3aa28ea6950[m btrfs: output the reason for open_ctree() failure
+[33mfde89fe11b445[m media: imx-jpeg: Fix potential error pointer dereference in detach_pm()
+[33m3311c5395e732[m staging: media: max96712: fix kernel oops when removing module
+[33mf0c33e7d387cc[m usb: gadget: f_tcm: Don't free command immediately
+[33m73e268b4be27b[m mptcp: handle fastopen disconnect correctly
+[33m3b5332d416d15[m mptcp: consolidate suboption status
+[33m495320792721f[m usb: typec: tcpci: Prevent Sink disconnection before vPpsShutdown in SPR PPS
+[33m17d426628cfd8[m usb: typec: tcpm: set SRC_SEND_CAPABILITIES timeout to PD_T_SENDER_RESPONSE
+[33m9232719ac9ce4[m media: uvcvideo: Fix double free in error path
+[33m64925ab46c884[m usb: dwc3: core: Defer the probe until USB power supply ready
+[33m2cf54928e7e32[m remoteproc: core: Fix ida_free call while not allocated
+[33m2c3e83538f080[m usb: gadget: f_tcm: Fix Get/SetInterface return value
+[33m93a56dbe12327[m drivers/card_reader/rtsx_usb: Restore interrupt based detection
+[33me10b392a7495a[m net: usb: rtl8150: enable basic endpoint checking
+[33m32814861f1997[m usb: dwc3-am62: Fix an OF node leak in phy_syscon_pll_refclk()
