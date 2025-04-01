@@ -201,6 +201,12 @@ void f2fs_abort_atomic_write(struct inode *inode, bool clean)
 	clear_inode_flag(inode, FI_ATOMIC_FILE);
 	if (is_inode_flag_set(inode, FI_ATOMIC_DIRTIED)) {
 		clear_inode_flag(inode, FI_ATOMIC_DIRTIED);
+		/*
+		 * The vfs inode keeps clean during commit, but the f2fs inode
+		 * doesn't. So clear the dirty state after commit and let
+		 * f2fs_mark_inode_dirty_sync ensure a consistent dirty state.
+		 */
+		f2fs_inode_synced(inode);
 		f2fs_mark_inode_dirty_sync(inode, true);
 	}
 	stat_dec_atomic_inode(inode);
@@ -3705,8 +3711,8 @@ void f2fs_do_replace_block(struct f2fs_sb_info *sbi, struct f2fs_summary *sum,
 		}
 	}
 
-	f2fs_bug_on(sbi, !IS_DATASEG(type));
 	curseg = CURSEG_I(sbi, type);
+	f2fs_bug_on(sbi, !IS_DATASEG(curseg->seg_type));
 
 	mutex_lock(&curseg->curseg_mutex);
 	down_write(&sit_i->sentry_lock);
