@@ -20,6 +20,20 @@
 #include "stmmac.h"
 #include "stmmac_platform.h"
 
+static int phytype = -1;
+
+/**
+ * stmmac_set_phytype - sets the phytype
+ * @p_type: Phy type argument obtained from kernel params
+ * Description: this function assigns phy type such as 1G and 2.5G
+ * based on the params obtained from the kernel param i.e., enet
+ */
+void stmmac_set_phytype(int p_type)
+{
+	phytype = p_type;
+}
+EXPORT_SYMBOL_GPL(stmmac_set_phytype);
+
 #ifdef CONFIG_OF
 
 /**
@@ -214,12 +228,13 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
 
 		queue++;
 	}
+#if !IS_ENABLED(CONFIG_DWMAC_QCOM_ETHQOS)
 	if (queue != plat->rx_queues_to_use) {
 		ret = -EINVAL;
 		dev_err(&pdev->dev, "Not all RX queues were configured\n");
 		goto out;
 	}
-
+#endif
 	/* Processing TX queues common config */
 	if (of_property_read_u32(tx_node, "snps,tx-queues-to-use",
 				 &plat->tx_queues_to_use))
@@ -278,6 +293,7 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
 
 		queue++;
 	}
+#if !IS_ENABLED(CONFIG_DWMAC_QCOM_ETHQOS)
 	if (queue != plat->tx_queues_to_use) {
 		ret = -EINVAL;
 		dev_err(&pdev->dev, "Not all TX queues were configured\n");
@@ -285,6 +301,7 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
 	}
 
 out:
+#endif
 	of_node_put(rx_node);
 	of_node_put(tx_node);
 	of_node_put(q_node);
@@ -345,7 +362,7 @@ static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
 		mdio = true;
 	}
 
-	if (mdio) {
+	if (mdio || phytype != SWITCH) {
 		plat->mdio_bus_data =
 			devm_kzalloc(dev, sizeof(struct stmmac_mdio_bus_data),
 				     GFP_KERNEL);
@@ -428,7 +445,8 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
 	plat->phy_node = of_parse_phandle(np, "phy-handle", 0);
 
 	/* PHYLINK automatically parses the phy-handle property */
-	plat->phylink_node = np;
+	if (phytype == SWITCH)
+		plat->phylink_node = np;
 
 	/* Get max speed of operation from device tree */
 	of_property_read_u32(np, "max-speed", &plat->max_speed);
@@ -603,6 +621,12 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
 		plat->clk_ptp_rate = clk_get_rate(plat->clk_ptp_ref);
 		dev_dbg(&pdev->dev, "PTP rate %d\n", plat->clk_ptp_rate);
 	}
+	of_property_read_u32(np,
+			     "snps,ptp-ref-clk-rate", &plat->clk_ptp_rate);
+
+	of_property_read_u32(np,
+			     "snps,ptp-req-clk-rate", &plat->clk_ptp_req_rate);
+
 
 	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
 							   STMMAC_RESOURCE_NAME);

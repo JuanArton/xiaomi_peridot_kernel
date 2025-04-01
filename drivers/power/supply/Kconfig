@@ -295,6 +295,18 @@ config BATTERY_BQ27XXX_DT_UPDATES_NVM
 	  general-purpose kernels, as this can cause misconfiguration of a
 	  smart battery with embedded NVM/flash.
 
+config BATTERY_BQ27XXX_RESIST_TABLE_UPDATES_NVM
+        bool "BQ27xxx resistance table update of NVM/flash data memory"
+        depends on BATTERY_BQ27XXX_DT_UPDATES_NVM
+        help
+	  Say Y here to enable devicetree monitored-battery resistance table config
+	  and Qmax-cell0 value in the NVM/flash data memory. Only enable this option
+	  when calibrated resistance table and Qmax-Cell0 parameters for the battery
+	  in-use are updated in DT. If the Battery specific data is not available
+	  in DT, then this config should not be set to Y. Not for general-purpose
+	  kernels, as this can cause is the configuration of a smart battery with
+	  embedded NVM/flash.
+
 config BATTERY_DA9030
 	tristate "DA9030 battery driver"
 	depends on PMIC_DA903X
@@ -440,6 +452,19 @@ config BATTERY_TWL4030_MADC
 	help
 	  Say Y here to enable this dumb driver for batteries managed
 	  through the TWL4030 MADC.
+
+config QTI_BATTERY_CHARGER
+	tristate "QTI Glink battery charger"
+	depends on QTI_PMIC_GLINK
+	help
+	  Say Y here to enable Qualcomm Technologies, Inc. battery charger
+	  driver which interfaces with the charger firmware running on the
+	  remote subsystem (e.g. DSP) by communicating over PMIC Glink channel
+	  and provides information about the battery, USB and wireless charging
+	  by exposing them as power supply devices.
+
+	  To compile the driver as a module, choose M here: the module will be
+	  called qti_battery_charger.
 
 config CHARGER_88PM860X
 	tristate "Marvell 88PM860x Charger driver"
@@ -917,5 +942,7 @@ config BATTERY_UG3105
 	  Since Linux does not monitor coulomb-counter changes while the
 	  device is off or suspended, the functionality of this driver is
 	  limited to reporting capacity only.
+
+source "drivers/power/supply/qcom/Kconfig"
 
 endif # POWER_SUPPLY
