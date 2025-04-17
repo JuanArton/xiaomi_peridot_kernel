@@ -7,6 +7,25 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+# ─── USER INPUT ────────────────────────────────────────────────────────────────
+
+read -rp "Enter kernel version (e.g. 5): " FIRST_PARAM
+
+echo "Select build variant:"
+echo "1) zn   (Z - NonKSU)"
+echo "2) zksu (Z - KSU)"
+echo "3) xn   (X - NonKSU)"
+echo "4) xksu (X - KSU)"
+read -rp "Enter choice [1-4]: " variant_choice
+
+case "$variant_choice" in
+    1) FLAG="zn" ;;
+    2) FLAG="zksu" ;;
+    3) FLAG="xn" ;;
+    4) FLAG="xksu" ;;
+    *) echo "Invalid choice. Exiting." && exit 1 ;;
+esac
+
 # ─── CONFIGURATION ──────────────────────────────────────────────────────────────
 
 export PATH="$HOME/tc/clang/bin:$PATH"
@@ -53,12 +72,8 @@ echo "------ Compilation Finished in ${ELAPSED}s ------"
 
 # ─── POST BUILD ACTIONS ─────────────────────────────────────────────────────────
 
-# Expecting parameters, example: ./build.sh 5 zn
-FIRST_PARAM=$1
-FLAG=$2
-
 BOOT_IMG="${OUT_DIR}/arch/arm64/boot/Image.gz"
-TEMPLATE_DIR="/home/juan/Kernel/out/template"
+TEMPLATE_DIR="$HOME/Kernel/out/template"
 DEST_FILE="$TEMPLATE_DIR/Image.gz"
 
 if [[ ! -f "$BOOT_IMG" ]]; then
@@ -76,24 +91,19 @@ DEST_PATH=""
 case "$FLAG" in
     zn)
         ZIP_NAME="Antergos-Z-V${FIRST_PARAM}-NonKSU.zip"
-        DEST_PATH="/home/juan/Kernel/out/battery"
+        DEST_PATH="$HOME/Kernel/out/battery"
         ;;
     zksu)
         ZIP_NAME="Antergos-Z-V${FIRST_PARAM}-KSU.zip"
-        DEST_PATH="/home/juan/Kernel/out/battery"
+        DEST_PATH="$HOME/Kernel/out/battery"
         ;;
     xn)
         ZIP_NAME="Antergos-X-V${FIRST_PARAM}-NonKSU.zip"
-        DEST_PATH="/home/juan/Kernel/out/perf"
+        DEST_PATH="$HOME/Kernel/out/perf"
         ;;
     xksu)
         ZIP_NAME="Antergos-X-V${FIRST_PARAM}-KSU.zip"
-        DEST_PATH="/home/juan/Kernel/out/perf"
-        ;;
-    *)
-        echo "Invalid flag provided: $FLAG"
-        echo "Use: zn, zksu, xn, xksu"
-        exit 1
+        DEST_PATH="$HOME/Kernel/out/perf"
         ;;
 esac
 
