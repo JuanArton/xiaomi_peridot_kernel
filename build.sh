@@ -35,6 +35,8 @@ KBUILD_COMPILER_STRING="$("$HOME/tc/clang/bin/clang" --version | head -n 1 | sed
 KBUILD_LINKER_STRING="$("$HOME/tc/clang/bin/ld.lld" --version | head -n 1 | sed -E 's/\(http.*?\)//g' | sed -E 's/\s+/ /g' | sed -E 's/\(compatible with [^)]*\)//' | sed 's/[[:space:]]*$//')"
 export KBUILD_COMPILER_STRING
 export KBUILD_LINKER_STRING
+export KBUILD_BUILD_USER="antergos"
+export KBUILD_BUILD_HOST="peridot"
 
 DATE=$(date '+%Y%m%d-%H%M')
 VERSION="Antergos-PERIDOT-${DATE}"
