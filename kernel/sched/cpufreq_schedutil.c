@@ -19,6 +19,7 @@
  struct sugov_tunables {
 	 struct gov_attr_set	attr_set;
 	 unsigned int		rate_limit_us;
+	 unsigned int 		powersave_bias;
  };
  
  struct sugov_policy {
@@ -43,6 +44,7 @@
  
 	 bool			limits_changed;
 	 bool			need_freq_update;
+	 unsigned int 	powersave_bias;
  };
  
  struct sugov_cpu {
@@ -147,6 +149,8 @@
 	 struct cpufreq_policy *policy = sg_policy->policy;
 	 unsigned int freq = arch_scale_freq_invariant() ?
 				 policy->cpuinfo.max_freq : policy->cur;
+	 unsigned int freqTmp = arch_scale_freq_invariant() ?
+				 policy->cpuinfo.max_freq : policy->cur;
 	 unsigned int idx, l_freq, h_freq;
 	 unsigned long next_freq = 0;
  
@@ -157,6 +161,16 @@
 		 freq = next_freq;
 	 else
 		 freq = map_util_freq(util, freq, max);
+
+	 if (sg_policy->powersave_bias) {
+		 freqTmp = freq;
+		 unsigned int bias_freq = freq * sg_policy->powersave_bias / 1000;
+		 if (bias_freq < freq)
+			 freq = freq - bias_freq;
+
+		 if (freq <= 0)
+		 	 freq = freqTmp;
+	 }
  
 	 if (freq == sg_policy->cached_raw_freq && !sg_policy->need_freq_update)
 		 return sg_policy->next_freq;
@@ -512,11 +526,38 @@
  
 	 return count;
  }
+
+ static ssize_t powersave_bias_show(struct gov_attr_set *attr_set, char *buf)
+ {
+	 struct sugov_tunables *tunables = to_sugov_tunables(attr_set);
+ 
+	 return sprintf(buf, "%u\n", tunables->powersave_bias);
+ }
+ 
+ static ssize_t
+ powersave_bias_store(struct gov_attr_set *attr_set, const char *buf, size_t count)
+ {
+	 struct sugov_tunables *tunables = to_sugov_tunables(attr_set);
+	 struct sugov_policy *sg_policy;
+	 unsigned int powersave_bias;
+
+	 if (kstrtouint(buf, 10, &powersave_bias))
+		 return -EINVAL;
+
+	 tunables->powersave_bias = powersave_bias;
+
+	 list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_hook)
+		 sg_policy->powersave_bias = powersave_bias * NSEC_PER_USEC;
+
+	 return count;
+ }
  
  static struct governor_attr rate_limit_us = __ATTR_RW(rate_limit_us);
+ static struct governor_attr powersave_bias = __ATTR_RW(powersave_bias);
  
  static struct attribute *sugov_attrs[] = {
 	 &rate_limit_us.attr,
+	 &powersave_bias.attr,
 	 NULL
  };
  ATTRIBUTE_GROUPS(sugov);
@@ -681,6 +722,7 @@
 	 }
  
 	 tunables->rate_limit_us = 20000;
+	 tunables->powersave_bias = 600;
  
 	 policy->governor_data = sg_policy;
 	 sg_policy->tunables = tunables;
@@ -800,7 +842,7 @@
  
 	 sg_policy->limits_changed = true;
  }
- 
+
  struct cpufreq_governor schedutil_gov = {
 	 .name			= "schedutil",
 	 .owner			= THIS_MODULE,
@@ -809,7 +851,7 @@
 	 .exit			= sugov_exit,
 	 .start			= sugov_start,
 	 .stop			= sugov_stop,
-	 .limits			= sugov_limits,
+	 .limits		= sugov_limits,
  };
  
  #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
