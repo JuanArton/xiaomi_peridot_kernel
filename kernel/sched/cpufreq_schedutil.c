@@ -182,6 +182,7 @@
 				 policy->cpuinfo.max_freq : policy->cur;
 	 unsigned int freqTmp = arch_scale_freq_invariant() ?
 				 policy->cpuinfo.max_freq : policy->cur;
+	 unsigned int idx, l_freq, h_freq;
 	 unsigned long next_freq = 0;
  
 	 util = map_util_perf(util);
