@@ -15,6 +15,8 @@
  #include <linux/irq_work.h>
  
  #define IOWAIT_BOOST_MIN	(SCHED_CAPACITY_SCALE / 8)
+ #define BIAS_LOCKOUT_THRESHOLD 2000000U
+ #define BIAS_LOCKOUT_DURATION_NS (2ULL * NSEC_PER_SEC)
  
  struct sugov_tunables {
 	 struct gov_attr_set	attr_set;
@@ -45,6 +47,7 @@
 	 bool			limits_changed;
 	 bool			need_freq_update;
 	 unsigned int 	powersave_bias;
+	 u64 high_freq_entry_time;
  };
  
  struct sugov_cpu {
@@ -120,6 +123,34 @@
 		 irq_work_queue(&sg_policy->irq_work);
 	 }
  }
+
+ static inline unsigned int apply_powersave_bias(struct sugov_policy *sg_policy, unsigned int freq)
+ {
+	 u64 now = ktime_get();
+ 
+	 if (freq >= BIAS_LOCKOUT_THRESHOLD) {
+		 if (!sg_policy->high_freq_entry_time)
+			 sg_policy->high_freq_entry_time = now;
+ 
+		 if (now - sg_policy->high_freq_entry_time >= BIAS_LOCKOUT_DURATION_NS)
+			 return freq;
+	 } else {
+		 sg_policy->high_freq_entry_time = 0;
+	 }
+ 
+	 if (!sg_policy->powersave_bias)
+		 return freq;
+ 
+	 unsigned int bias_freq = freq * sg_policy->powersave_bias / 1000;
+ 
+	 if (bias_freq < freq)
+		 freq -= bias_freq;
+ 
+	 if (freq <= 0)
+		 freq = sg_policy->policy->cpuinfo.min_freq;
+ 
+	 return freq;
+ }
  
  /**
   * get_next_freq - Compute a new frequency for a given cpufreq policy.
@@ -151,7 +182,6 @@
 				 policy->cpuinfo.max_freq : policy->cur;
 	 unsigned int freqTmp = arch_scale_freq_invariant() ?
 				 policy->cpuinfo.max_freq : policy->cur;
-	 unsigned int idx, l_freq, h_freq;
 	 unsigned long next_freq = 0;
  
 	 util = map_util_perf(util);
@@ -162,16 +192,6 @@
 	 else
 		 freq = map_util_freq(util, freq, max);
 
-	 if (sg_policy->powersave_bias) {
-		 freqTmp = freq;
-		 unsigned int bias_freq = freq * sg_policy->powersave_bias / 1000;
-		 if (bias_freq < freq)
-			 freq = freq - bias_freq;
-
-		 if (freq <= 0)
-		 	 freq = freqTmp;
-	 }
- 
 	 if (freq == sg_policy->cached_raw_freq && !sg_policy->need_freq_update)
 		 return sg_policy->next_freq;
  
@@ -189,6 +209,9 @@
 	 if (mult_frac(100, freq - h_freq, l_freq - h_freq) < 20)
 		 return h_freq;
 	 return l_freq;
+ 
+	 sg_policy->cached_raw_freq = freq;
+	 return cpufreq_driver_resolve_freq(policy, freq);
  }
  
  static void sugov_get_util(struct sugov_cpu *sg_cpu)
@@ -361,6 +384,7 @@
 		 return;
  
 	 next_f = get_next_freq(sg_policy, sg_cpu->util, sg_cpu->max);
+	 next_f = apply_powersave_bias(sg_policy, next_f);
  
 	 if (!sugov_update_next_freq(sg_policy, time, next_f))
 		 return;
@@ -409,6 +433,7 @@
 	 struct cpufreq_policy *policy = sg_policy->policy;
 	 unsigned long util = 0, max = 1;
 	 unsigned int j;
+	 unsigned int next_f;
  
 	 for_each_cpu(j, policy->cpus) {
 		 struct sugov_cpu *j_sg_cpu = &per_cpu(sugov_cpu, j);
@@ -424,8 +449,11 @@
 			 max = j_max;
 		 }
 	 }
+
+	 next_f = get_next_freq(sg_policy, util, max);
+	 next_f = apply_powersave_bias(sg_policy, next_f);
  
-	 return get_next_freq(sg_policy, util, max);
+	 return next_f;
  }
  
  static void
@@ -721,7 +749,7 @@
 		 goto stop_kthread;
 	 }
  
-	 tunables->rate_limit_us = 20000;
+	 tunables->rate_limit_us = 2000;
 	 tunables->powersave_bias = 600;
  
 	 policy->governor_data = sg_policy;
