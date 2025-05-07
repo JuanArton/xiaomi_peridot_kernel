@@ -17,7 +17,7 @@ echo "2) zksu (Z - KSU)"
 echo "3) zksus (S - KSU)"
 echo "4) xn   (X - NonKSU)"
 echo "5) xksu (X - KSU)"
-echo "4) xksus (X - KSUS)"
+echo "6) xksus (X - KSUS)"
 read -rp "Enter choice [1-4]: " variant_choice
 
 case "$variant_choice" in
@@ -116,7 +116,7 @@ case "$FLAG" in
         DEST_PATH="$HOME/Kernel/out/perf"
         ;;
     xksus)
-        ZIP_NAME="Antergos-X-V${FIRST_PARAM}-KSU.zip"
+        ZIP_NAME="Antergos-X-V${FIRST_PARAM}-KSUS.zip"
         DEST_PATH="$HOME/Kernel/out/perf"
         ;;
 esac
