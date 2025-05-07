@@ -15,18 +15,22 @@ echo "Select build variant:"
 echo "1) zn   (Z - NonKSU)"
 echo "2) zksu (Z - KSU)"
 echo "3) zksus (S - KSU)"
-echo "4) xn   (X - NonKSU)"
-echo "5) xksu (X - KSU)"
-echo "6) xksus (X - KSUS)"
+echo "4) zsksus (X - KSUS)"
+echo "5) xn   (X - NonKSU)"
+echo "6) xksu (X - KSU)"
+echo "7) xksus (X - KSUS)"
+echo "8) xsksus (X - KSUS)"
 read -rp "Enter choice [1-4]: " variant_choice
 
 case "$variant_choice" in
     1) FLAG="zn" ;;
     2) FLAG="zksu" ;;
     3) FLAG="zksus" ;;
-    4) FLAG="xn" ;;
-    5) FLAG="xksu" ;;
-    6) FLAG="xksus" ;;
+    4) FLAG="zsksus" ;;
+    5) FLAG="xn" ;;
+    6) FLAG="xksu" ;;
+    7) FLAG="xksus" ;;
+    8) FLAG="xsksus" ;;
     *) echo "Invalid choice. Exiting." && exit 1 ;;
 esac
 
@@ -107,6 +111,10 @@ case "$FLAG" in
         ZIP_NAME="Antergos-Z-V${FIRST_PARAM}-KSUS.zip"
         DEST_PATH="$HOME/Kernel/out/battery"
         ;;
+    zsksus)
+        ZIP_NAME="Antergos-Z-V${FIRST_PARAM}-SukiSUS.zip"
+        DEST_PATH="$HOME/Kernel/out/battery"
+        ;;
     xn)
         ZIP_NAME="Antergos-X-V${FIRST_PARAM}-NonKSU.zip"
         DEST_PATH="$HOME/Kernel/out/perf"
@@ -117,6 +125,10 @@ case "$FLAG" in
         ;;
     xksus)
         ZIP_NAME="Antergos-X-V${FIRST_PARAM}-KSUS.zip"
+        DEST_PATH="$HOME/Kernel/out/perf"
+        ;;
+    xsksus)
+        ZIP_NAME="Antergos-X-V${FIRST_PARAM}-SukiSUS.zip"
         DEST_PATH="$HOME/Kernel/out/perf"
         ;;
 esac
