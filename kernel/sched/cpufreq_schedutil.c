@@ -15,13 +15,14 @@
  #include <linux/irq_work.h>
  
  #define IOWAIT_BOOST_MIN	(SCHED_CAPACITY_SCALE / 8)
- #define BIAS_LOCKOUT_THRESHOLD 2000000U
- #define BIAS_LOCKOUT_DURATION_NS (2ULL * NSEC_PER_SEC)
+ #define BIAS_LOCKOUT_THRESHOLD 1700000U
+ #define BIAS_LOCKOUT_DURATION_NS (1ULL * NSEC_PER_SEC)
  
  struct sugov_tunables {
 	 struct gov_attr_set	attr_set;
 	 unsigned int		rate_limit_us;
 	 unsigned int 		powersave_bias;
+	 unsigned int 		powersave_bias_enabled;
  };
  
  struct sugov_policy {
@@ -47,7 +48,8 @@
 	 bool			limits_changed;
 	 bool			need_freq_update;
 	 unsigned int 	powersave_bias;
-	 u64 high_freq_entry_time;
+	 u64 			high_freq_entry_time;
+	 unsigned int 		powersave_bias_enabled;
  };
  
  struct sugov_cpu {
@@ -126,31 +128,40 @@
 
  static inline unsigned int apply_powersave_bias(struct sugov_policy *sg_policy, unsigned int freq)
  {
-	 u64 now = ktime_get();
+	 if (sg_policy->tunables->powersave_bias_enabled == 1) {
+		 u64 now = ktime_get();
  
-	 if (freq >= BIAS_LOCKOUT_THRESHOLD) {
-		 if (!sg_policy->high_freq_entry_time)
-			 sg_policy->high_freq_entry_time = now;
+		 if (freq >= BIAS_LOCKOUT_THRESHOLD) {
+			 if (!sg_policy->high_freq_entry_time) {
+				 sg_policy->high_freq_entry_time = now;
+			 }
  
-		 if (now - sg_policy->high_freq_entry_time >= BIAS_LOCKOUT_DURATION_NS)
+			 if (now - sg_policy->high_freq_entry_time >= BIAS_LOCKOUT_DURATION_NS) {
+				 return freq;
+			 }
+		 } else {
+			 sg_policy->high_freq_entry_time = 0;
+		 }
+ 
+		 if (!sg_policy->tunables->powersave_bias)
 			 return freq;
+ 
+		 unsigned int bias_freq = freq * sg_policy->tunables->powersave_bias / 1000;
+ 
+		 if (bias_freq < freq)
+			 freq -= bias_freq;
+ 
+		 if (freq <= 0)
+			 freq = sg_policy->policy->cpuinfo.min_freq;
+
+		 unsigned int final_freq = cpufreq_driver_resolve_freq(sg_policy->policy, freq);
+ 
+		 return final_freq;
 	 } else {
-		 sg_policy->high_freq_entry_time = 0;
-	 }
- 
-	 if (!sg_policy->powersave_bias)
 		 return freq;
- 
-	 unsigned int bias_freq = freq * sg_policy->powersave_bias / 1000;
- 
-	 if (bias_freq < freq)
-		 freq -= bias_freq;
- 
-	 if (freq <= 0)
-		 freq = sg_policy->policy->cpuinfo.min_freq;
- 
-	 return freq;
+	 }
  }
+ 
  
  /**
   * get_next_freq - Compute a new frequency for a given cpufreq policy.
@@ -580,13 +591,40 @@
 
 	 return count;
  }
+
+ static ssize_t powersave_bias_enabled_show(struct gov_attr_set *attr_set, char *buf)
+ {
+	 struct sugov_tunables *tunables = to_sugov_tunables(attr_set);
+ 
+	 return sprintf(buf, "%u\n", tunables->powersave_bias_enabled);
+ }
+ 
+ static ssize_t
+ powersave_bias_enabled_store(struct gov_attr_set *attr_set, const char *buf, size_t count)
+ {
+	 struct sugov_tunables *tunables = to_sugov_tunables(attr_set);
+	 struct sugov_policy *sg_policy;
+	 unsigned int powersave_bias_enabled;
+
+	 if (kstrtouint(buf, 10, &powersave_bias_enabled))
+		 return -EINVAL;
+
+	 tunables->powersave_bias_enabled = powersave_bias_enabled;
+
+	 list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_hook)
+		 sg_policy->powersave_bias_enabled = powersave_bias_enabled * NSEC_PER_USEC;
+
+	 return count;
+ }
  
  static struct governor_attr rate_limit_us = __ATTR_RW(rate_limit_us);
  static struct governor_attr powersave_bias = __ATTR_RW(powersave_bias);
+ static struct governor_attr powersave_bias_enabled = __ATTR_RW(powersave_bias_enabled);
  
  static struct attribute *sugov_attrs[] = {
 	 &rate_limit_us.attr,
 	 &powersave_bias.attr,
+	 &powersave_bias_enabled.attr,
 	 NULL
  };
  ATTRIBUTE_GROUPS(sugov);
@@ -751,7 +789,14 @@
 	 }
  
 	 tunables->rate_limit_us = 2000;
-	 tunables->powersave_bias = 600;
+	 if (policy->cpu >= 0 && policy->cpu <= 2) {
+		 tunables->powersave_bias = 100;
+	 } else if (policy->cpu >= 3 && policy->cpu <= 6) {
+		 tunables->powersave_bias = 150;
+	 } else if (policy->cpu == 7) {
+		 tunables->powersave_bias = 150;
+	 }
+	 tunables->powersave_bias_enabled = 1;
  
 	 policy->governor_data = sg_policy;
 	 sg_policy->tunables = tunables;
