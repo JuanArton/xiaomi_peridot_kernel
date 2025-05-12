@@ -794,7 +794,7 @@
 	 } else if (policy->cpu >= 3 && policy->cpu <= 6) {
 		 tunables->powersave_bias = 200;
 	 } else if (policy->cpu == 7) {
-		 tunables->powersave_bias = 250;
+		 tunables->powersave_bias = 200;
 	 }
 	 tunables->powersave_bias_enabled = 1;
  
